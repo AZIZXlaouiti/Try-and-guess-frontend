@@ -7,6 +7,7 @@ const App = () => {
   const [chats, setChats] = useState({});
   const [chatLogs, setChatLogs] = useState([])
   const prev = useRef(null)
+  const sec = useRef(null)
   const handleClick = (e)=>{
   // console.log(e.target.name)
   if (e.target.name === 'clear'){
@@ -17,7 +18,9 @@ const App = () => {
 
 } 
   const handleChange =(e)=>{
-     console.log(prev.current)
+    const data = prev.current.getSaveData()
+     console.log(prev.current.getSaveData())
+    sec.current.loadSaveData(data , true)
   }
   const loadChats = () => {
     fetch('http://localhost:3001/chat_messages')
@@ -44,6 +47,7 @@ const App = () => {
 
   const createSocket = () => {
     let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    //creating subscription to specific channel 
     const chatConnection = cable.subscriptions.create({
       channel: 'ChatChannel'
     }, {
@@ -54,6 +58,7 @@ const App = () => {
         console.log(data,'recieved')
         // setChatLogs(chatLogCopy);
       },
+      //sending changes to ws// used for rendering
       create: (chatContent) => {
         chatConnection.perform('create', {
           content: chatContent
@@ -64,9 +69,7 @@ const App = () => {
     setChats(chatConnection)
     setConnection(true);
   }
-  useEffect(()=>{
-    console.log(prev.current,'canvas')
-  })
+
   const chatLogLis = chatLogs.map((chat) => {
     return (
       <li key={ chat.id }>
@@ -102,6 +105,8 @@ const App = () => {
       <button onClick={handleClick} name='undo'>undo</button>
     <CanvasDraw brushRadius={5} lazyRadius={7}  canvasWidth={800} 
     canvasHeight={600} loadTimeOffset={8}  hideInterface={true} ref={prev} onChange={handleChange}/>
+    <CanvasDraw brushRadius={5} lazyRadius={7}  canvasWidth={800} 
+    canvasHeight={600} loadTimeOffset={8}  hideInterface={true} ref={sec} />
       
     </div>
     </div>
