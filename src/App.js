@@ -27,6 +27,9 @@ const App = () => {
     prev.current.undo()
   }else if (e.target.name === 'load'){
     prev.current.loadPaths(canvas)
+  }else {
+    handleSendCanvas(prev.current.state.currentPaths)
+    console.log("canvas brodcast",prev.current.state.currentPaths)
   }
 
 } 
@@ -69,10 +72,29 @@ const App = () => {
     chats.create( currentChatMessage );
     setCurrentChatMessage('');
   }
+  const handleSendCanvas = (currentCanvas) => {
+    canvas.create(currentCanvas );
+    // setCurrentChatMessage('');
+  }
 
   const createSocket = () => {
     let cable = Cable.createConsumer('ws://localhost:3001/cable');
     //creating subscription to specific channel 
+    const canvasConnection = cable.subscriptions.create({
+      channel: 'SketchChannel'
+    },{
+      connected: ()=>{},
+      received: async (data)=>{
+        const resp = await JSON.parse(data);
+         console.log('canvas_recieved',resp)
+        // setCanvas(data.canvas)
+      },
+      create: (canvasContent)=>{
+        canvasConnection.perform('create',{
+           paths: canvasContent
+        })
+      }
+    })
     const chatConnection = cable.subscriptions.create({
       channel: 'ChatChannel'
     }, {
@@ -80,13 +102,13 @@ const App = () => {
       received: async (data) => {
         const resp = await JSON.parse(data);
         setChatLogs(resp.chat_messages)
-        console.log(resp,'lines')
+        // console.log(resp,'lines')
         // setChatLogs(chatLogCopy);
       },
       //sending changes to ws// used for rendering
       create: (chatContent) => {
         chatConnection.perform('create', {
-          //calling the chat channel create method
+          //calling the chat_channel create method
           content: chatContent
         });
       }
@@ -125,6 +147,7 @@ const App = () => {
         >
           Send
         </button>
+        <button onClick={handleClick} name='broadcast'>broadcast</button>
         <button onClick={handleClick} name='load'>load</button>
       <button onClick={handleClick} name='clear'>clear</button>
       <button onClick={handleClick} name='undo'>undo</button>
