@@ -7,79 +7,10 @@ const App = () => {
   const [connection, setConnection ] = useState(false);
   const [chats, setChats] = useState({});
   const [chatLogs, setChatLogs] = useState([])
-  const drawing = [
-    {
-        "drawMode": true,
-        "strokeColor": "red",
-        "strokeWidth": 7,
-        "paths": [
-            {
-                "x": 278.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 280.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 283.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 286.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 290.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 294.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 297.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 301.953125,
-                "y": 50.203125
-            },
-            {
-                "x": 304.953125,
-                "y": 51.203125
-            },
-            {
-                "x": 308.953125,
-                "y": 52.203125
-            },
-            {
-                "x": 310.953125,
-                "y": 52.203125
-            },
-            {
-                "x": 311.953125,
-                "y": 52.203125
-            },
-            {
-                "x": 312.953125,
-                "y": 52.203125
-            },
-            {
-                "x": 315.953125,
-                "y": 53.203125
-            },
-            {
-                "x": 317.953125,
-                "y": 53.203125
-            },
-            {
-                "x": 318.953125,
-                "y": 53.203125
-            }
-        ]
-    }
-]
+  const [canvas , setCanvas] = useState([])
+
+
+
     
   const prev = useRef(null)
   const sec = useRef(null)
@@ -95,7 +26,7 @@ const App = () => {
   }else if(e.target.name === 'undo') {
     prev.current.undo()
   }else if (e.target.name === 'load'){
-   prev.current.loadPaths(drawing)
+    prev.current.loadPaths(canvas)
   }
 
 } 
@@ -109,11 +40,18 @@ const App = () => {
       .then(resp => resp.json())
       .then(data => setChatLogs(data))
   }
+  const loadCanvas =()=>{
+    fetch('http://localhost:3001/sketches')
+      .then(resp => resp.json())
+      .then(data => setCanvas(data))
+  }
+
 
   useEffect(() => {
     if(!connection) {
       createSocket();
       loadChats();
+      loadCanvas()
     }
   }, [connection])
   
