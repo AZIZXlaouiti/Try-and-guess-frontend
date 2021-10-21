@@ -54,7 +54,7 @@ const App = () => {
     if(!connection) {
       createSocket();
       loadChats();
-      loadCanvas()
+      // loadCanvas()
     }
   }, [connection])
   
@@ -113,7 +113,7 @@ const App = () => {
         });
       }
     });
-
+    setCanvas(canvasConnection)
     setChats(chatConnection)
     setConnection(true);
   }
