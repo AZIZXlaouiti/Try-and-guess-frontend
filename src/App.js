@@ -7,6 +7,80 @@ const App = () => {
   const [connection, setConnection ] = useState(false);
   const [chats, setChats] = useState({});
   const [chatLogs, setChatLogs] = useState([])
+  const drawing = [
+    {
+        "drawMode": true,
+        "strokeColor": "red",
+        "strokeWidth": 7,
+        "paths": [
+            {
+                "x": 278.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 280.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 283.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 286.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 290.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 294.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 297.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 301.953125,
+                "y": 50.203125
+            },
+            {
+                "x": 304.953125,
+                "y": 51.203125
+            },
+            {
+                "x": 308.953125,
+                "y": 52.203125
+            },
+            {
+                "x": 310.953125,
+                "y": 52.203125
+            },
+            {
+                "x": 311.953125,
+                "y": 52.203125
+            },
+            {
+                "x": 312.953125,
+                "y": 52.203125
+            },
+            {
+                "x": 315.953125,
+                "y": 53.203125
+            },
+            {
+                "x": 317.953125,
+                "y": 53.203125
+            },
+            {
+                "x": 318.953125,
+                "y": 53.203125
+            }
+        ]
+    }
+]
+    
   const prev = useRef(null)
   const sec = useRef(null)
   const styles = {
@@ -14,13 +88,15 @@ const App = () => {
     borderRadius: '0.25rem',
   };
   const handleClick = (e)=>{
-    prev.current.clearCanvas()
+   
   // console.log(e.target.name)
-  // if (e.target.name === 'clear'){
-  //   prev.current.clear()
-  // }else if(e.target.name === 'undo') {
-  //   prev.current.undo()
-  // }
+  if (e.target.name === 'clear'){
+    prev.current.clearCanvas()
+  }else if(e.target.name === 'undo') {
+    prev.current.undo()
+  }else if (e.target.name === 'load'){
+   prev.current.loadPaths(drawing)
+  }
 
 } 
   const handleChange =(e)=>{
@@ -111,19 +187,21 @@ const App = () => {
         >
           Send
         </button>
-      </div>
-      <div>
+        <button onClick={handleClick} name='load'>load</button>
       <button onClick={handleClick} name='clear'>clear</button>
       <button onClick={handleClick} name='undo'>undo</button>
       <ReactSketchCanvas
       style={styles}
-      width="400"
-      height="400"
+      width="800"
+      height="600"
       strokeWidth={7}
       strokeColor="red"
       onUpdate={(e)=>console.log('canvas',e) }
       ref={prev}
-    />
+      
+      />
+      </div>
+      <div>
        {/* <SketchField width='1024px' 
                          height='768px' 
                          tool={Tools.Pencil} 

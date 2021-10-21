@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import actionCable from 'actioncable' 
 import { BrowserRouter as Router } from 'react-router-dom';
+import CanvasDraw from "react-canvas-draw";
 
 const CableApp = {}
 CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
@@ -24,5 +25,3 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-
