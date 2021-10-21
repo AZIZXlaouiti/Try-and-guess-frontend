@@ -1,6 +1,7 @@
 import React, { useState, useEffect  , useRef} from 'react';
 import Cable from 'actioncable';
 import CanvasDraw from 'react-canvas-draw';
+import { ReactSketchCanvas } from 'react-sketch-canvas';
 const App = () => {
   const [currentChatMessage, setCurrentChatMessage] = useState('')
   const [connection, setConnection ] = useState(false);
@@ -8,18 +9,23 @@ const App = () => {
   const [chatLogs, setChatLogs] = useState([])
   const prev = useRef(null)
   const sec = useRef(null)
+  const styles = {
+    border: '0.0625rem solid #9c9c9c',
+    borderRadius: '0.25rem',
+  };
   const handleClick = (e)=>{
+    prev.current.clearCanvas()
   // console.log(e.target.name)
-  if (e.target.name === 'clear'){
-    prev.current.clear()
-  }else if(e.target.name === 'undo') {
-    prev.current.undo()
-  }
+  // if (e.target.name === 'clear'){
+  //   prev.current.clear()
+  // }else if(e.target.name === 'undo') {
+  //   prev.current.undo()
+  // }
 
 } 
   const handleChange =(e)=>{
     const data = prev.current.getSaveData()
-     console.log(prev.current.getSaveData())
+     console.log(JSON.parse(prev.current.getSaveData()))
     sec.current.loadSaveData(data , true)
   }
   const loadChats = () => {
@@ -34,6 +40,11 @@ const App = () => {
       loadChats();
     }
   }, [connection])
+  
+  useEffect(()=>{
+    
+  },[])
+
 
   const updateCurrentChatMessage = (event) => {
     setCurrentChatMessage(event.target.value);
@@ -55,12 +66,13 @@ const App = () => {
       received: async (data) => {
         const resp = await JSON.parse(data);
         setChatLogs(resp.chat_messages)
-        console.log(data,'recieved')
+        console.log(resp,'lines')
         // setChatLogs(chatLogCopy);
       },
       //sending changes to ws// used for rendering
       create: (chatContent) => {
         chatConnection.perform('create', {
+          //calling the chat channel create method
           content: chatContent
         });
       }
@@ -103,11 +115,25 @@ const App = () => {
       <div>
       <button onClick={handleClick} name='clear'>clear</button>
       <button onClick={handleClick} name='undo'>undo</button>
-    <CanvasDraw brushRadius={5} lazyRadius={7}  canvasWidth={800} 
-    canvasHeight={600} loadTimeOffset={8}  hideInterface={true} ref={prev} onChange={handleChange}/>
+      <ReactSketchCanvas
+      style={styles}
+      width="400"
+      height="400"
+      strokeWidth={7}
+      strokeColor="red"
+      onUpdate={(e)=>console.log('canvas',e) }
+      ref={prev}
+    />
+       {/* <SketchField width='1024px' 
+                         height='768px' 
+                         tool={Tools.Pencil} 
+                         lineColor='black'
+                         lineWidth={3}/> */}
+    {/* <CanvasDraw brushRadius={5} lazyRadius={7}  canvasWidth={800} 
+    canvasHeight={600} loadTimeOffset={8}  hideInterface={true} ref={prev} onChange={handleChange} immediateLoading={true} />
     <CanvasDraw brushRadius={5} lazyRadius={7}  canvasWidth={800} 
     canvasHeight={600} loadTimeOffset={8}  hideInterface={true} ref={sec} />
-      
+       */}
     </div>
     </div>
   );
