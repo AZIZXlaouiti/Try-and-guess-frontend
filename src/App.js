@@ -91,7 +91,7 @@ const App = () => {
       },
       create: (canvasContent)=>{
         canvasConnection.perform('create',{
-           paths: canvasContent
+            canvas: canvasContent
         })
       }
     })
