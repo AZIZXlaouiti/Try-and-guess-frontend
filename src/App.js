@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Cable from "actioncable";
 import CanvasDraw from "react-canvas-draw";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-import DrawApp from "./DrawApp";
 import Canvas from "./canvas";
 import DrawApp2 from "./DrawApp2";
 const App = () => {
@@ -87,10 +86,9 @@ const App = () => {
       {
         connected: () => {},
         received: async (data) => {
-          setTestCanvas(data)
+          // setTestCanvas(data)
           // prev.current.loadPaths(data);
-          // setLines(data)
-          setState(data)
+          setLines(data)
           // const resp = await JSON.parse(data);
           console.log("canvas_recieved", data);
           // setCanvas(data.canvas)
@@ -161,33 +159,12 @@ const App = () => {
         <button onClick={handleClick} name="broadcast">
           broadcast
         </button>
-        {/* <ReactSketchCanvas
-          style={styles}
-          width={600}
-          height={600}
-          strokeWidth={5}
-          strokeColor="black"
-          onUpdate={(e) =>{
-            // debugger;
-            console.log('canvas',e)
-          }
-        }
-          ref={prev}
-          
-          backgroundImage={`https://upload.wikimedia.org/wikipedia/commons/7/70/Graph_paper_scan_1600x1000_%286509259561%29.jpg`}
-        /> */}
+       
         
       </div>
       <h1>canvas</h1>
-      {/* <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/> */}
-      {/* <DrawingBoard 
-
-         onChange={(newOperation, afterOperation) => {
-          console.log(`TODO: send ${newOperation}`)
-         }}
-      /> */}
-      <DrawApp/>
-      <DrawApp2 state={state} setState={setState} handleSendCanvas={handleSendCanvas} />
+      <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/>
+     
       <div>
       </div>
     </div>
