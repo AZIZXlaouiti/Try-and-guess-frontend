@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Cable from "actioncable";
 import CanvasDraw from "react-canvas-draw";
 import { ReactSketchCanvas } from "react-sketch-canvas";
+import DrawApp from "./DrawApp";
 import Canvas from "./canvas";
+import DrawApp2 from "./DrawApp2";
 const App = () => {
   const [currentChatMessage, setCurrentChatMessage] = useState("");
   const [connection, setConnection] = useState(false);
@@ -12,6 +14,12 @@ const App = () => {
   const [testCanvas , setTestCanvas] = useState([])
   const prev = useRef(null);
   const [lines, setLines] = useState([]);
+  const [state, setState] = useState({
+    mode: "draw",
+    pen: "up",
+    lineWidth: 10,
+    penColor: "black",
+  });
   const styles = {
     border: "0.0625rem solid #9c9c9c",
     borderRadius: "0.25rem",
@@ -81,7 +89,8 @@ const App = () => {
         received: async (data) => {
           setTestCanvas(data)
           // prev.current.loadPaths(data);
-          setLines(data)
+          // setLines(data)
+          setState(data)
           // const resp = await JSON.parse(data);
           console.log("canvas_recieved", data);
           // setCanvas(data.canvas)
@@ -170,13 +179,15 @@ const App = () => {
         
       </div>
       <h1>canvas</h1>
-      <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/>
+      {/* <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/> */}
       {/* <DrawingBoard 
 
          onChange={(newOperation, afterOperation) => {
           console.log(`TODO: send ${newOperation}`)
          }}
       /> */}
+      <DrawApp/>
+      <DrawApp2 state={state} setState={setState} handleSendCanvas={handleSendCanvas} />
       <div>
       </div>
     </div>
