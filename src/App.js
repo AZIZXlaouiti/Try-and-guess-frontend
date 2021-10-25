@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Cable from "actioncable";
 import CanvasDraw from "react-canvas-draw";
 import { ReactSketchCanvas } from "react-sketch-canvas";
+import Canvas from "./canvas";
 const App = () => {
   const [currentChatMessage, setCurrentChatMessage] = useState("");
   const [connection, setConnection] = useState(false);
@@ -10,6 +11,7 @@ const App = () => {
   const [canvas, setCanvas] = useState([]);
   const [testCanvas , setTestCanvas] = useState([])
   const prev = useRef(null);
+  const [lines, setLines] = useState([]);
   const styles = {
     border: "0.0625rem solid #9c9c9c",
     borderRadius: "0.25rem",
@@ -24,8 +26,8 @@ const App = () => {
       prev.current.loadPaths(testCanvas);
       console.log('test',testCanvas)
     } else {
-      handleSendCanvas(prev.current.state.currentPaths);
-      console.log("canvas brodcast", prev.current.state.currentPaths);
+      handleSendCanvas(lines);
+      // console.log("canvas brodcast", prev.current.state.currentPaths);
     }
   };
 
@@ -34,22 +36,24 @@ const App = () => {
       .then((resp) => resp.json())
       .then((data) => setChatLogs(data));
   };
-  const loadCanvas = () => {
-    fetch("http://localhost:3001/sketches")
-      .then((resp) => resp.json())
-      .then((data) => setTestCanvas(data));
+  const loadCanvas =async () => {
+    const resp = await fetch("http://localhost:3001/sketches")
+      const data = await resp.json()
+       setTestCanvas(data)
+       prev.current.loadPaths(testCanvas);
+       console.log('prev',prev.current.currentPaths)
   };
 
   useEffect(() => {
     if (!connection) {
       createSocket();
       loadChats();
-      loadCanvas()
+      // loadCanvas()
     }
   }, [connection]);
 
-  useEffect(() => {}, []);
-
+  
+  
   const updateCurrentChatMessage = (event) => {
     setCurrentChatMessage(event.target.value);
   };
@@ -61,6 +65,8 @@ const App = () => {
   };
   const handleSendCanvas = (currentCanvas) => {
     canvas.create(currentCanvas);
+    // lines.create(currentCanvas)s
+   
   };
 
   const createSocket = () => {
@@ -73,8 +79,11 @@ const App = () => {
       {
         connected: () => {},
         received: async (data) => {
-          const resp = await JSON.parse(data);
-          console.log("canvas_recieved", resp);
+          setTestCanvas(data)
+          // prev.current.loadPaths(data);
+          setLines(data)
+          // const resp = await JSON.parse(data);
+          console.log("canvas_recieved", data);
           // setCanvas(data.canvas)
         },
         create: (canvasContent) => {
@@ -93,8 +102,7 @@ const App = () => {
         received: async (data) => {
           const resp = await JSON.parse(data);
           setChatLogs(resp.chat_messages);
-          // console.log(resp,'lines')
-          // setChatLogs(chatLogCopy);
+          console.log('chat recieved',resp.chat_messages)
         },
         //sending changes to ws// used for rendering
         create: (chatContent) => {
@@ -106,13 +114,14 @@ const App = () => {
       }
     );
     setCanvas(canvasConnection);
+    // setLines(canvasConnection)
     setChats(chatConnection);
     setConnection(true);
   };
-
   const chatLogLis = chatLogs.map((chat) => {
     return <li key={chat.id}>user says: {chat.content}</li>;
   });
+  console.log('hey')
   return (
     <div className="App">
       <div className="stage">
@@ -130,9 +139,7 @@ const App = () => {
         <button className="send" onClick={handleSendEvent}>
           Send
         </button>
-        <button onClick={handleClick} name="broadcast">
-          broadcast
-        </button>
+       
         <button onClick={handleClick} name="load">
           load
         </button>
@@ -142,19 +149,35 @@ const App = () => {
         <button onClick={handleClick} name="undo">
           undo
         </button>
-        <ReactSketchCanvas
+        <button onClick={handleClick} name="broadcast">
+          broadcast
+        </button>
+        {/* <ReactSketchCanvas
           style={styles}
           width={600}
           height={600}
-          strokeWidth={7}
-          strokeColor="red"
-          onUpdate={(e) => console.log("canvas", e)}
+          strokeWidth={5}
+          strokeColor="black"
+          onUpdate={(e) =>{
+            // debugger;
+            console.log('canvas',e)
+          }
+        }
           ref={prev}
+          
           backgroundImage={`https://upload.wikimedia.org/wikipedia/commons/7/70/Graph_paper_scan_1600x1000_%286509259561%29.jpg`}
-        />
+        /> */}
+        
       </div>
+      <h1>canvas</h1>
+      <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/>
+      {/* <DrawingBoard 
+
+         onChange={(newOperation, afterOperation) => {
+          console.log(`TODO: send ${newOperation}`)
+         }}
+      /> */}
       <div>
-    
       </div>
     </div>
   );

@@ -64,4 +64,5 @@ reportWebVitals();
 // while x>0
 //   canvas_1 = Sketch.create()
 //   canvas_1.create(x:,y:)
+//      x -=1
 // end
