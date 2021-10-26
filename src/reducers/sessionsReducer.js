@@ -3,7 +3,7 @@ const initialState = {
     loggedIn: false
 }
 
-export default (state = initialState, { type, payload }) => {
+ const sessionsReducer= (  state = initialState, { type, payload }) => {
     switch (type) {
 
     case 'SIGNUP':

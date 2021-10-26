@@ -1,4 +1,4 @@
-import {SET_CANVAS_SUBSCRIPTION , SET_CHAT_SUBSCRIPTION} from '../actions/actionType'
+import {SET_CANVAS_SUBSCRIPTION , SET_CHAT_SUBSCRIPTION} from '../actions/actionTypes'
 
 const initialState = {
     subscriptions: {}
