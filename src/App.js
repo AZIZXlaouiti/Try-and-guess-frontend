@@ -4,13 +4,14 @@ import CanvasDraw from "react-canvas-draw";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Canvas from "./canvas";
 import DrawApp2 from "./DrawApp2";
+import CanvasFreeDrawing from "canvas-free-drawing";
 const App = () => {
   const [currentChatMessage, setCurrentChatMessage] = useState("");
   const [connection, setConnection] = useState(false);
   const [chats, setChats] = useState({});
   const [chatLogs, setChatLogs] = useState([]);
   const [canvas, setCanvas] = useState([]);
-  const [testCanvas , setTestCanvas] = useState([])
+  const [testCanvas, setTestCanvas] = useState([]);
   const prev = useRef(null);
   const [lines, setLines] = useState([]);
   const [state, setState] = useState({
@@ -31,7 +32,7 @@ const App = () => {
       prev.current.undo();
     } else if (e.target.name === "load") {
       prev.current.loadPaths(testCanvas);
-      console.log('test',testCanvas)
+      console.log("test", testCanvas);
     } else {
       handleSendCanvas(lines);
       // console.log("canvas brodcast", prev.current.state.currentPaths);
@@ -43,12 +44,12 @@ const App = () => {
       .then((resp) => resp.json())
       .then((data) => setChatLogs(data));
   };
-  const loadCanvas =async () => {
-    const resp = await fetch("http://localhost:3001/sketches")
-      const data = await resp.json()
-       setTestCanvas(data)
-       prev.current.loadPaths(testCanvas);
-       console.log('prev',prev.current.currentPaths)
+  const loadCanvas = async () => {
+    const resp = await fetch("http://localhost:3001/sketches");
+    const data = await resp.json();
+    setTestCanvas(data);
+    prev.current.loadPaths(testCanvas);
+    console.log("prev", prev.current.currentPaths);
   };
 
   useEffect(() => {
@@ -59,8 +60,6 @@ const App = () => {
     }
   }, [connection]);
 
-  
-  
   const updateCurrentChatMessage = (event) => {
     setCurrentChatMessage(event.target.value);
   };
@@ -73,7 +72,6 @@ const App = () => {
   const handleSendCanvas = (currentCanvas) => {
     canvas.create(currentCanvas);
     // lines.create(currentCanvas)s
-   
   };
 
   const createSocket = () => {
@@ -88,7 +86,7 @@ const App = () => {
         received: async (data) => {
           // setTestCanvas(data)
           // prev.current.loadPaths(data);
-          setLines(data)
+          setLines(data);
           // const resp = await JSON.parse(data);
           console.log("canvas_recieved", data);
           // setCanvas(data.canvas)
@@ -105,11 +103,14 @@ const App = () => {
         channel: "ChatChannel",
       },
       {
-        connected: () => {},
+        connected: () => {
+          // chatConnection.perform("appear",{
+
+          // })
+        },
         received: async (data) => {
           const resp = await JSON.parse(data);
           setChatLogs(resp.chat_messages);
-          console.log('chat recieved',resp.chat_messages)
         },
         //sending changes to ws// used for rendering
         create: (chatContent) => {
@@ -121,14 +122,13 @@ const App = () => {
       }
     );
     setCanvas(canvasConnection);
-    // setLines(canvasConnection)
     setChats(chatConnection);
     setConnection(true);
   };
   const chatLogLis = chatLogs.map((chat) => {
     return <li key={chat.id}>user says: {chat.content}</li>;
   });
-  console.log('hey')
+  console.log("hey");
   return (
     <div className="App">
       <div className="stage">
@@ -146,7 +146,7 @@ const App = () => {
         <button className="send" onClick={handleSendEvent}>
           Send
         </button>
-       
+
         <button onClick={handleClick} name="load">
           load
         </button>
@@ -159,14 +159,14 @@ const App = () => {
         <button onClick={handleClick} name="broadcast">
           broadcast
         </button>
-       
-        
       </div>
-      <h1>canvas</h1>
-      <Canvas lines={lines} setLines={setLines} handleSendCanvas={handleSendCanvas}/>
-     
-      <div>
-      </div>
+    
+      <Canvas
+        lines={lines}
+        setLines={setLines}
+        handleSendCanvas={handleSendCanvas}
+      />
+      <DrawApp2 setState={setState} state={state}/>
     </div>
   );
 };

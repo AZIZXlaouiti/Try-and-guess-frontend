@@ -1,22 +1,23 @@
-import React, { createContext } from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import actionCable from "actioncable";
-import { BrowserRouter as Router } from "react-router-dom";
-import CanvasDraw from "react-canvas-draw";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const CableApp = {};
-CableApp.cable = actionCable.createConsumer("ws://localhost:3000/cable");
-export const ActionCableContext = createContext();
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
 ReactDOM.render(
-  <Router>
-    <ActionCableContext.Provider value={CableApp.cable}>
+  <React.StrictMode>
+    <Provider store={ store }>
       <App />
-    </ActionCableContext.Provider>
-  </Router>,
-  document.getElementById("root")
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

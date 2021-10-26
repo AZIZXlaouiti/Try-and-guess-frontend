@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "actioncable": "^5.2.6",
+    "canvas-free-drawing": "^2.1.0",
     "konva": "^8.2.3",
     "react": "^17.0.2",
     "react-canvas-draw": "^1.1.1",
@@ -18,7 +19,9 @@
     "react-scripts": "4.0.3",
     "react-sketch": "^0.5.1",
     "react-sketch-canvas": "^5.3.5",
+    "react-sketchpad": "^0.0.3",
     "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
     "sketchpad": "^0.1.0",
     "thunk": "^0.0.1",
     "web-vitals": "^1.0.1"

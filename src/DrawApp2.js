@@ -28,7 +28,7 @@ const styles = {
     black: { backgroundColor: "black" },
   },
 };
-const DrawApp2 = ({state , setState , handleSendCanvas}) => {
+const DrawApp2 = ({state , setState }) => {
     const data = [
         {
           x: 556,
@@ -131,7 +131,6 @@ const DrawApp2 = ({state , setState , handleSendCanvas}) => {
         ...state,
         penCoords: [e.nativeEvent.offsetX, e.nativeEvent.offsetY],
       });
-      handleSendCanvas(state)
     }
   };
 
