@@ -10,6 +10,8 @@ const Canvas = () => {
     const canvasLogs = useSelector(state => state.canvasLogs)
     const dispatch = useDispatch()
 
+   console.log('canvasLogs',canvasLogs)
+
     const handleSendCanvas = ()=>{
       canvas.create(canvasLogs)
     }

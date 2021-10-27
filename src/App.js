@@ -32,7 +32,7 @@ const App = () => {
         {
           connected: () => {},
           received: async (data) => {
-            // dispatch(setLines(data))
+            dispatch(setLines(data))
             console.log('recieved canvas',data)
           },
           create: (canvasContent) => {
