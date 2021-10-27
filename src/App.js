@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Cable from "actioncable";
-import Canvas from "./canvas";
-import DrawApp2 from "./DrawApp2";
+import Canvas from "./components/static/Canvas"
 import { useDispatch } from "react-redux";
 import { setCanvasSubscription } from "./actions/connection";
 import { setChatSubscription } from "./actions/connection";
 import { setChats } from './actions/chatLogs';
+import { setLines } from "./actions/canvasLogs";
 import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
 const App = () => {
@@ -39,7 +39,7 @@ const App = () => {
         {
           connected: () => {},
           received: async (data) => {
-            // setLines(data);
+            dispatch(setLines(data))
           },
           create: (canvasContent) => {
             canvasConnection.perform("create", {
@@ -90,10 +90,11 @@ const App = () => {
     <div className="App">
     <div className='stage'>
         <h1>Chat Message</h1>
-      
+      <Canvas/>
       <ChatList/>
       <ChatForm/>
       </div>
+      <footer> <h4>Pen by mohamed aziz laouiti</h4></footer>
     </div>
   );
 };

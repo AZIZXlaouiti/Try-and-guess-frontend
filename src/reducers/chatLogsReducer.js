@@ -2,7 +2,7 @@ import { SET_CHATS } from "../actions/actionTypes"
 
 const initialState = []
 
-const ChatLogsReducer =  (state = initialState, { type, payload }) => {
+const chatLogsReducer =  (state = initialState, { type, payload }) => {
     switch (type) {
 
     case SET_CHATS:
@@ -12,4 +12,4 @@ const ChatLogsReducer =  (state = initialState, { type, payload }) => {
         return state
     }
 }
-export default ChatLogsReducer
+export default chatLogsReducer

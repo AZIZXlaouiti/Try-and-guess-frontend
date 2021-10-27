@@ -4,8 +4,8 @@ import { loadChats } from '../../actions/chatLogs'
 const ChatList = () => {
     const dispatch = useDispatch()
     const chatLogs = useSelector(state => state.chatLogs)
-
-    
+    const logs = useSelector(state => state)
+    console.log(logs,'logs')
     useEffect(()=>{
       dispatch(loadChats())
     },[dispatch])
