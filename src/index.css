@@ -74,3 +74,12 @@ button.send {
   font-size: 20px;
   border-radius: 3px;
 }
+#currentWord {
+  flex: 1 1 auto;
+  user-select: none;
+  pointer-events: none;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 3px;
+}

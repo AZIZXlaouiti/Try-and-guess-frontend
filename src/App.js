@@ -8,6 +8,7 @@ import { setChats } from './actions/chatLogs';
 import { setLines } from "./actions/canvasLogs";
 import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
+import Timer from "./components/static/Timer";
 const App = () => {
   const [connection, setConnection] = useState(false);
   const dispatch = useDispatch()
@@ -84,6 +85,7 @@ const App = () => {
     <div className="App">
     <div className='stage'>
         <h1>Chat Message</h1>
+        <Timer/>
       <Canvas/>
       <ChatList/>
       <ChatForm/>

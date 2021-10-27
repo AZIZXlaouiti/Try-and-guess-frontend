@@ -1,7 +1,7 @@
 import React, { useRef , useState } from 'react';
 import { Stage, Layer, Line, Text } from 'react-konva';
 import { useSelector , useDispatch } from 'react-redux';
-import { setLines } from '../../actions/canvasLogs';
+import { clearCanvas, setLines } from '../../actions/canvasLogs';
 const Canvas = () => {
     const [tool, setTool] = useState('pen');
     const [currentLines , setCurrentLines] = useState([])
@@ -43,6 +43,7 @@ const Canvas = () => {
     };
     return (
         <>
+     <div id="currentWord">_a__ __h__</div>
         <Stage
         width={700} height={700}
         onMouseDown={handleMouseDown}
@@ -78,7 +79,7 @@ const Canvas = () => {
         <option value="eraser">Eraser</option>
       </select>
       <button >load</button>
-      <button onClick={(e)=>setLines([])}>clear</button>
+      <button onClick={(e)=>dispatch(clearCanvas())}>clear</button>
 
       
     </>
