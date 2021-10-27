@@ -11,13 +11,6 @@ import ChatList from './components/static/ChatList'
 const App = () => {
   const [connection, setConnection] = useState(false);
   const dispatch = useDispatch()
-  
-  
-
-  const prev = useRef(null);
-  const [lines, setLines] = useState([]);
-
-
   const [state, setState] = useState({
     mode: "draw",
     pen: "up",
@@ -39,7 +32,8 @@ const App = () => {
         {
           connected: () => {},
           received: async (data) => {
-            dispatch(setLines(data))
+            // dispatch(setLines(data))
+            console.log('recieved canvas',data)
           },
           create: (canvasContent) => {
             canvasConnection.perform("create", {
