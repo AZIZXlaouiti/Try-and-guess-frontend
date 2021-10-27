@@ -1,6 +1,11 @@
-export const decrement = () => {
+export const start = () => {
     return {
-      type: "DECREMNET"
+      type: "START_TIMER"
+    }
+  }
+  export const stop = () => {
+    return {
+      type: "STOP_TIMER"
     }
   }
 
