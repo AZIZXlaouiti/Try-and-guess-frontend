@@ -12,29 +12,30 @@ import { Stack, TextField, IconButton, InputAdornment } from '@mui/material';
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [ready , setReady ] = useState(false)
-  // useEffect(()=>{
-  //   if (!Object.values(formik.initialValues).some((value)=>value === "")){
-  //     setReady(true)
-  //   }
-  //   else {
-  //     setReady(false)
-  //   }
-  // },[])
-  // const formik = useFormik({
-  //     username: '',
-  //     password: ''
-   
-  // });
-  // console.log(formik.initialValues , "formik")
-  // const handleChange = (e)=>{
-  //   console.log(e.target.name)
-  //   formik.initialValues[e.target.name]= e.target.value
-  // }
+  const [form , setForm ] = useState({
+    username:'',
+    password:''
+  })
+  useEffect(()=>{
+    if (!Object.values(form).some((value)=>value === "")){
+      setReady(true)
+    }
+    else {
+      setReady(false)
+    }
+  },[form])
+  const handleChange = (e)=>{
+    
+   setForm({
+    ...form ,  
+    [e.target.name]: e.target.value
+  })
+}
   
 
   return (
    
-      <form autoComplete="off" noValidate>
+      <form autoComplete="off" noValidate onChange={handleChange} >
         <Stack spacing={3}>
          <h1>Signup</h1>
 
@@ -51,7 +52,7 @@ export default function Signup() {
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
-            
+            name="password"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
