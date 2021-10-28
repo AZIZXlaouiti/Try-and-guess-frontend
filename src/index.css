@@ -1,4 +1,4 @@
-.clearfix:after {
+/* .clearfix:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -88,4 +88,18 @@ button.send {
   align-items: center;
   height: 50;
 
+}*/
+
+form {
+  max-width: 330px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  margin-top: 30px;
 }
+
+form .form__custom-button {
+  margin-top: 50px;
+} 

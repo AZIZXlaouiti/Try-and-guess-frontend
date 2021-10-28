@@ -94,10 +94,10 @@ const App = () => {
   if (!session.loggedIn){
     return (
       <>
-      
+        <div className="App">
      <Signup/>
      {/* <Login/> */}
-      
+     </div>
       </>
     )
   }
