@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router , Route , Switch , Redirect } from "react-router-dom";
 import Cable from "actioncable";
 import Canvas from "./components/static/Canvas"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCanvasSubscription } from "./actions/connection";
 import { setChatSubscription } from "./actions/connection";
 import { setChats } from './actions/chatLogs';
@@ -9,9 +10,15 @@ import { setLines } from "./actions/canvasLogs";
 import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
 import Timer from "./components/static/Timer";
+import Signup from "./components/sessions/Signup";
+import Login from "./components/sessions/Login";
+
 const App = () => {
   const [connection, setConnection] = useState(false);
+  const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
+
+
   const [state, setState] = useState({
     mode: "draw",
     pen: "up",
@@ -77,9 +84,23 @@ const App = () => {
     }
   }, [connection , dispatch]);
 
-  
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if (token){
+      //s
+    }
+  },[])
 
-  
+  if (!session.loggedIn){
+    return (
+      <>
+      
+     <Signup/>
+     {/* <Login/> */}
+      
+      </>
+    )
+  }
  
   return (
     <div className="App">
