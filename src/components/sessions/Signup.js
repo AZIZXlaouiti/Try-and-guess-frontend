@@ -53,8 +53,8 @@ export default function Signup() {
      }else{
        login(form)
        .then(data=>{
-        if (data.message){
-          setError(data.message)
+        if (data.errors){
+          setError(data.errors)
         }else {
           //
           //  updateCurrentUser()
@@ -124,6 +124,7 @@ export default function Signup() {
             onClick={(e)=>{
               e.preventDefault()
               setSignup(!isSignup)
+              setError('')
             }}
           >
             {isSignup ?"Login":"Signup"}
