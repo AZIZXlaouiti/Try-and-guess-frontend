@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Icon } from "@iconify/react";
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
@@ -10,6 +11,7 @@ import { signup , login } from "./auth";
 // ----------------------------------------------------------------------
 
 export default function SessionFrom() {
+  const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [ready, setReady] = useState(false);
   const [isSignup , setSignup ] = useState(true)
@@ -46,8 +48,8 @@ export default function SessionFrom() {
          if (data.message){
            setError(data.message)
          }else {
-           //
-           //  updateCurrentUser()
+          dispatch({ type: "LOGIN", payload: data})
+          localStorage.setItem('token', data.token);
           }
         })
      }else{
@@ -56,8 +58,8 @@ export default function SessionFrom() {
         if (data.errors){
           setError(data.errors)
         }else {
-          //
-          //  updateCurrentUser()
+          dispatch({ type: "LOGIN", payload: data})
+          localStorage.setItem('token', data.token);
          }
      })
     };
