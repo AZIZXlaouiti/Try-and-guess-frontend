@@ -10,8 +10,7 @@ import { setLines } from "./actions/canvasLogs";
 import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
 import Timer from "./components/static/Timer";
-import Signup from "./components/sessions/Signup";
-
+import SessionFrom from "./components/sessions/sessionForm";
 
 const App = () => {
   const [connection, setConnection] = useState(false);
@@ -94,7 +93,7 @@ const App = () => {
   if (!session.loggedIn){
     return (
  
-     <Signup/>
+     <SessionFrom/>
     
     )
   }

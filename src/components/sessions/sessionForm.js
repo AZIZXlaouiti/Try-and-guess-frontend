@@ -9,7 +9,7 @@ import { Stack, TextField, IconButton, InputAdornment } from "@mui/material";
 import { signup , login } from "./auth";
 // ----------------------------------------------------------------------
 
-export default function Signup() {
+export default function SessionFrom() {
   const [showPassword, setShowPassword] = useState(false);
   const [ready, setReady] = useState(false);
   const [isSignup , setSignup ] = useState(true)
