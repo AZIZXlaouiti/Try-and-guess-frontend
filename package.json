@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.1.10",
     "actioncable": "^5.2.6",
     "canvas-free-drawing": "^2.1.0",
+    "dotenv": "^10.0.0",
     "formik": "^2.2.9",
     "konva": "^8.2.3",
     "react": "^17.0.2",

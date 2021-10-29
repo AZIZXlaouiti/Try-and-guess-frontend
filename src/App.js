@@ -11,7 +11,7 @@ import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
 import Timer from "./components/static/Timer";
 import Signup from "./components/sessions/Signup";
-import Login from "./components/sessions/Login";
+
 
 const App = () => {
   const [connection, setConnection] = useState(false);
@@ -41,7 +41,7 @@ const App = () => {
           connected: () => {},
           received: async (data) => {
             dispatch(setLines(data))
-            console.log('recieved canvas',data)
+            // console.log('recieved canvas',data)
           },
           create: (canvasContent) => {
             canvasConnection.perform("create", {
@@ -93,15 +93,11 @@ const App = () => {
 
   if (!session.loggedIn){
     return (
-      <>
-        <div className="App">
+ 
      <Signup/>
-     {/* <Login/> */}
-     </div>
-      </>
+    
     )
   }
- 
   return (
     <div className="App">
     <div className='stage'>
