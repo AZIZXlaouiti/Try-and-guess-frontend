@@ -11,6 +11,7 @@ import ChatList from './components/static/ChatList'
 import Timer from "./components/static/Timer";
 import SessionFrom from "./components/sessions/sessionForm";
 import { getCurrentUser } from "./components/sessions/auth";
+import { Link } from "@mui/material";
 
 const App = () => {
   const [connection, setConnection] = useState(false);
@@ -37,7 +38,9 @@ const App = () => {
           channel: "SketchChannel",
         },
         {
-          connected: () => {},
+          connected: () => {
+            console.log("user connected")
+          },
           received: async (data) => {
             dispatch(setLines(data))
             // console.log('recieved canvas',data)
@@ -86,7 +89,6 @@ const App = () => {
   useEffect(()=>{
     const token = localStorage.getItem("token")
     if (token){
-      console.log("token present")
       dispatch(getCurrentUser(token))
     }
   },[])
@@ -101,6 +103,18 @@ const App = () => {
   return (
     <div className="App">
     <div className='stage'>
+    <Link
+            variant="subtitle2"
+            underline="hover"
+            component="button"
+            onClick={(e)=>{
+              e.preventDefault()
+              dispatch({type:"LOGOUT"})
+              localStorage.removeItem('token')
+            }}
+          >
+           logout
+          </Link>
         <h1>Chat Message</h1>
         <Timer/>
       <Canvas/>

@@ -37,7 +37,6 @@ export const getCurrentUser = (token) => {
                     headers: headers 
                 })
         const data = await response.json()
-        console.log(data , "data")
        
         if(data.user) {
             dispatch({ type: "LOGIN", payload: data })
