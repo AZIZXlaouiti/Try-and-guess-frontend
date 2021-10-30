@@ -48,7 +48,7 @@ export default function SessionFrom() {
          if (data.message){
            setError(data.message)
          }else {
-          dispatch({ type: "LOGIN", payload: data})
+           dispatch({ type: "LOGIN", payload: data})
           localStorage.setItem('token', data.token);
           }
         })
@@ -64,7 +64,6 @@ export default function SessionFrom() {
      })
     };
   }
-    console.log("i ran ")
   return (
     <form
     onChange={handleChange}

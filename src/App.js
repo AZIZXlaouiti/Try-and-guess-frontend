@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router , Route , Switch , Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Cable from "actioncable";
 import Canvas from "./components/static/Canvas"
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +10,7 @@ import ChatForm from './components/static/ChatForm'
 import ChatList from './components/static/ChatList'
 import Timer from "./components/static/Timer";
 import SessionFrom from "./components/sessions/sessionForm";
+import { getCurrentUser } from "./components/sessions/auth";
 
 const App = () => {
   const [connection, setConnection] = useState(false);
@@ -84,9 +84,10 @@ const App = () => {
   }, [connection , dispatch]);
 
   useEffect(()=>{
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
     if (token){
-      //s
+      console.log("token present")
+      dispatch(getCurrentUser(token))
     }
   },[])
 

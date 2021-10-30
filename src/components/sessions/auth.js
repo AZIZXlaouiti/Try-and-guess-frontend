@@ -1,4 +1,3 @@
-// export const submitSignup = async (signupObject) => {
 
 import { BASE_URL } from "../../root"
 
@@ -24,12 +23,25 @@ export const signup = async (form) => {
     return data
 }
 
-// export const getUserInfo = async (token) => {
+export const getCurrentUser = (token) => {
+    return async dispatch =>{
 
-//     const method = "GET"
-//     const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
-//     const response = await fetch(`${baseURL}/me`, { method: method, headers: headers })
-//     const data = await response.json()
-//     return data
+        
+        const headers = { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+            }
+        const response = await fetch(`${BASE_URL}/profile`, 
+                 {
+                    headers: headers 
+                })
+        const data = await response.json()
+        console.log(data , "data")
+       
+        if(data.user) {
+            dispatch({ type: "LOGIN", payload: data })
+          }
+    }
 
-// }
+}
