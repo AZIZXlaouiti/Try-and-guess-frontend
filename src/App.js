@@ -14,7 +14,6 @@ import { getCurrentUser } from "./components/sessions/auth";
 import { Link } from "@mui/material";
 
 const App = () => {
-  const [connection, setConnection] = useState(false);
   const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
 
@@ -32,18 +31,18 @@ const App = () => {
   
   useEffect(() => {
     const createSocket = () => {
-      let cable = Cable.createConsumer("ws://localhost:3001/cable");
+      const  cable = Cable.createConsumer("ws://localhost:3001/cable");
       const canvasConnection = cable.subscriptions.create(
         {
           channel: "SketchChannel",
         },
         {
           connected: () => {
+            
             console.log("user connected")
           },
           received: async (data) => {
             dispatch(setLines(data))
-            // console.log('recieved canvas',data)
           },
           create: (canvasContent) => {
             canvasConnection.perform("create", {
@@ -59,7 +58,7 @@ const App = () => {
         {
           connected: () => {
             // chatConnection.perform("appear",{
-  
+            //     //
             // })
           },
           received: async (data) => {
@@ -77,14 +76,13 @@ const App = () => {
       dispatch(setCanvasSubscription(canvasConnection))
       dispatch(setChatSubscription(chatConnection))
   
-      setConnection(true);
     };
 
-    if (!connection) {
+    if (session.loggedIn) {
       createSocket();
    
     }
-  }, [connection , dispatch]);
+  }, [session.loggedIn , dispatch]);
 
   useEffect(()=>{
     const token = localStorage.getItem("token")
