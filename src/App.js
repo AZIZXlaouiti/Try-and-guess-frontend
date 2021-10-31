@@ -16,7 +16,7 @@ import { Link } from "@mui/material";
 const App = () => {
   const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
-
+  const connection  = useSelector(state => state.connections.subscriptions)
 
   const [state, setState] = useState({
     mode: "draw",
@@ -53,17 +53,19 @@ const App = () => {
       );
       const chatConnection = cable.subscriptions.create(
         {
-          channel: "ChatChannel",
+          channel: "ChatChannel",user:session.currentUser.user.username
         },
         {
-          connected: () => {
+          connected: async(data) => {
             // chatConnection.perform("appear",{
             //     //
             // })
           },
           received: async (data) => {
-            const resp = await JSON.parse(data);
-            dispatch(setChats(resp.chat_messages))
+            console.log("recieved",data)
+
+            // const resp = await JSON.parse(data);
+            // dispatch(setChats(resp.chat_messages))
           },
           create: (chatContent) => {
             chatConnection.perform("create", {
@@ -82,6 +84,7 @@ const App = () => {
       createSocket();
    
     }
+    
   }, [session.loggedIn , dispatch]);
 
   useEffect(()=>{
@@ -109,6 +112,9 @@ const App = () => {
               e.preventDefault()
               dispatch({type:"LOGOUT"})
               localStorage.removeItem('token')
+              connection.chats.unsubscribe({user:session.currentUser.user.username})
+              connection.canvas.unsubscribe()
+
             }}
           >
            logout
