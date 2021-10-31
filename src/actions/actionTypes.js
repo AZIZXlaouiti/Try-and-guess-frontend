@@ -1,4 +1,4 @@
-
+export const ADD_CHAT = "ADD_CHAT"
 export const SET_CANVAS = "SET_CANVAS";
 export const CLEAR_CANVAS = "CLEAR_CANVAS";
 export const SET_CHATS = "SET_CHATS";

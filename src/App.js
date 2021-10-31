@@ -64,12 +64,15 @@ const App = () => {
           },
           received: async (data) => {
             if (data.message){
-
+              // dispatch(setChats(data.message))
+              dispatch({type:"ADD_CHAT",payload:data.message})
               console.log("recieved",data.message)
             }else {
 
               const resp = await JSON.parse(data);
-              dispatch(setChats(resp.chat_messages))
+              dispatch({type:"ADD_CHAT",payload:resp.chat_messages})
+              console.log("chatlogsrecieved",resp.chat_messages)
+              
             }
             
           },

@@ -9,14 +9,20 @@ const ChatList = () => {
     useEffect(()=>{
       dispatch(loadChats())
     },[dispatch])
-
-
+    console.log(chatLogs , "chatlogs")
+   
     const chatLogLis = chatLogs.map((chat)=>{
-        return (
-            <li key={chat.id}>
-                user says: {chat.content}
-            </li>
-        )
+        if (chat.content){
+
+            return (
+                <li key={chat.id}>
+                    
+                    {chat.user_id}::{chat.content}
+                </li>
+            )
+        }else {
+            return <li>{chat}</li>
+        }
     })
     return (
         <div>
