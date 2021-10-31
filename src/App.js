@@ -53,7 +53,8 @@ const App = () => {
       );
       const chatConnection = cable.subscriptions.create(
         {
-          channel: "ChatChannel",user:session.currentUser.user.username
+          channel: "ChatChannel",
+          user: session.currentUser.user.username
         },
         {
           connected: async(data) => {
@@ -62,14 +63,20 @@ const App = () => {
             // })
           },
           received: async (data) => {
-            console.log("recieved",data)
+            if (data.message){
 
-            const resp = await JSON.parse(data);
-            dispatch(setChats(resp.chat_messages))
+              console.log("recieved",data.message)
+            }else {
+
+              const resp = await JSON.parse(data);
+              dispatch(setChats(resp.chat_messages))
+            }
+            
           },
           create: (chatContent) => {
             chatConnection.perform("create", {
               content: chatContent,
+              user_id: session.currentUser.user.id
             });
           },
         }
