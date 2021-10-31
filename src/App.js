@@ -64,8 +64,8 @@ const App = () => {
           received: async (data) => {
             console.log("recieved",data)
 
-            // const resp = await JSON.parse(data);
-            // dispatch(setChats(resp.chat_messages))
+            const resp = await JSON.parse(data);
+            dispatch(setChats(resp.chat_messages))
           },
           create: (chatContent) => {
             chatConnection.perform("create", {
