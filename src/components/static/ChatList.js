@@ -3,13 +3,12 @@ import { useDispatch , useSelector} from 'react-redux'
 import { loadChats } from '../../actions/chatLogs'
 const ChatList = () => {
     const dispatch = useDispatch()
-    const selectedWord = useSelector(state=>state.words)
     
    
     const chatLogs = useSelector(state => state.chatLogs)
-    const logs = useSelector(state => state)
     useEffect(()=>{
       dispatch(loadChats())
+      dispatch({type:"SELECTED_WORD"})
     },[dispatch])
    
     const chatLogLis = chatLogs.map((chat)=>{
@@ -31,7 +30,6 @@ const ChatList = () => {
             {chatLogLis}
             
             </ul>
-            <button  onClick={()=> dispatch({type:"SELECTED_WORD"})}>{selectedWord}</button>
         </div>
     )
 }

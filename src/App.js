@@ -103,9 +103,12 @@ const App = () => {
   },[])
 
   if (!token && loading){
+    dispatch({type:"RESET"})
     return (
  <>
+     
      <SessionFrom/>
+
  </>
     )
   }

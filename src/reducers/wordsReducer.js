@@ -1,13 +1,17 @@
 const initialState = [
-    "ball"
+    "ball","cake","storm",
+    "sea","toast","ship",
+    "fence","tree","trumpet",
+    "jail","goat"
 ]
 const wordsReducer = (state = initialState, { type, payload }) => {
     switch (type) {
 
     case "SELECTED_WORD":
         
-        state =  state[Math.floor(Math.random() * state.length)] 
-        return state
+        return state[Math.floor(Math.random() * state.length)] 
+    case "RESET":
+        return initialState    
     default:
         return state
     }
