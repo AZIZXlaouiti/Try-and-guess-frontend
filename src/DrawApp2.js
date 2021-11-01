@@ -174,7 +174,6 @@ const DrawApp2 = ({state , setState }) => {
     //    })
    
   };
-  console.log("location", locations);
   return (
     <div style={styles.maindiv}>
       <h3> React Canvas Component</h3>

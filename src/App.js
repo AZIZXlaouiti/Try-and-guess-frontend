@@ -12,12 +12,13 @@ import Timer from "./components/static/Timer";
 import SessionFrom from "./components/sessions/sessionForm";
 import { getCurrentUser } from "./components/sessions/auth";
 import { Link } from "@mui/material";
-
+import Words from "./components/static/Words";
 const App = () => {
   const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
   const connection  = useSelector(state => state.connections.subscriptions)
-
+  const [loading , setLoading ] = useState(true)
+  const token = localStorage.getItem("token")
   const [state, setState] = useState({
     mode: "draw",
     pen: "up",
@@ -38,8 +39,7 @@ const App = () => {
         },
         {
           connected: () => {
-            
-            console.log("user connected")
+            //
           },
           received: async (data) => {
             dispatch(setLines(data))
@@ -66,12 +66,10 @@ const App = () => {
             if (data.message){
               // dispatch(setChats(data.message))
               dispatch({type:"ADD_CHAT",payload:data.message})
-              console.log("recieved",data.message)
             }else {
 
               const resp = await JSON.parse(data);
               dispatch({type:"ADD_CHAT",payload:resp.chat_messages})
-              console.log("chatlogsrecieved",resp.chat_messages)
               
             }
             
@@ -98,19 +96,20 @@ const App = () => {
   }, [session.loggedIn , dispatch]);
 
   useEffect(()=>{
-    const token = localStorage.getItem("token")
+    
     if (token){
       dispatch(getCurrentUser(token))
     }
   },[])
 
-  if (!session.loggedIn){
+  if (!token && loading){
     return (
- 
+ <>
      <SessionFrom/>
-    
+ </>
     )
   }
+  console.log("i run ")
   return (
     <div className="App">
     <div className='stage'>
@@ -130,6 +129,7 @@ const App = () => {
            logout
           </Link>
         <h1>Chat Message</h1>
+        <Words/>
         <Timer/>
       <Canvas/>
       <ChatList/>

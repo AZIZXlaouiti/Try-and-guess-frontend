@@ -10,7 +10,6 @@ const Canvas = () => {
     const canvasLogs = useSelector(state => state.canvasLogs)
     const dispatch = useDispatch()
 
-   console.log('canvasLogs',canvasLogs)
 
     const handleSendCanvas = ()=>{
       canvas.create(canvasLogs)
@@ -43,7 +42,7 @@ const Canvas = () => {
     };
     return (
         <>
-     <div id="currentWord">_a__ __h__</div>
+     
         <Stage
         width={700} height={700}
         onMouseDown={handleMouseDown}

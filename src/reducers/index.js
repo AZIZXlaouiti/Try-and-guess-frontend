@@ -4,10 +4,12 @@ import connectionsReducer from "./connectionsReducer";
 import ChatLogsReducer from "./chatLogsReducer";
 import canvasLogsReducer from "./canvasLogsReducer";
 import timerReducer from "./timerReducer";
+import wordsReducer from "./wordsReducer";
 export default combineReducers({
     connections: connectionsReducer,
     sessions: sessionsReducer,
     chatLogs: ChatLogsReducer,
     canvasLogs: canvasLogsReducer,
-    timer: timerReducer
+    timer: timerReducer,
+    words: wordsReducer
 })
