@@ -1,5 +1,5 @@
 const initialState = {
-  count:10 , running:true
+  count:60 , running:true
 }
 
 const timerReducer = (state = initialState, { type, payload }) => {

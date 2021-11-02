@@ -78,6 +78,7 @@ const App = () => {
           connected: () => {
           },
           received: async (data) => {
+            //refactor to switch later
             if (data.join){
               dispatch({type:"ADD_USER",payload:{users:data.connected,turn:data.turn}})
               dispatch({type:"ADD_CHAT",payload:data.join})

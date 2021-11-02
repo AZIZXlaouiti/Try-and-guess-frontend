@@ -11,8 +11,11 @@ const ChatForm = () => {
   
     const handleSendEvent = (event) => {
       event.preventDefault();
-      chats.create( currentChatMessage );
-      setCurrentChatMessage('');
+      if (currentChatMessage !== ""){
+
+        chats.create( currentChatMessage );
+        setCurrentChatMessage('');
+      }
     }
     
     return (
@@ -30,7 +33,7 @@ const ChatForm = () => {
         >
           Send
         </button>
-        <button onClick={()=>chats.start()}>start word</button>
+        <button onClick={()=>chats.start()}>Start Game</button>
       </div>
     )
 }

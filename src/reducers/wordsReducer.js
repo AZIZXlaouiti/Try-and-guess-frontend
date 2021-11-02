@@ -1,8 +1,5 @@
 const initialState = [
-    "ball","cake","storm",
-    "sea","toast","ship",
-    "fence","tree","trumpet",
-    "jail","goat"
+   ""
 ]
 const wordsReducer = (state = initialState, { type, payload }) => {
     switch (type) {
