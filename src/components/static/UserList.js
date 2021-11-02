@@ -5,8 +5,9 @@ const UserList = () => {
     
     const userLis = session.users.map((user)=>{
         return (
-
-            <li>{user.username} {user.username === session.currentUser.user.username?"(YOU)":null}points:{user.score}</li>
+        <>
+            <li>{user.username} {user.username === session.turn.username?"is Drawing":""} {user.username === session.currentUser.user.username?"(YOU)":null}points:{user.score}</li>
+        </>
         )
     })
     return (

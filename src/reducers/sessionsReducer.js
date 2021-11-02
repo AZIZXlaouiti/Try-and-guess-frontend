@@ -1,6 +1,7 @@
 const initialState = {
     currentUser: {},
     users: [],
+    turn:[],
     loggedIn: false
 }
 
@@ -16,7 +17,7 @@ const initialState = {
     case 'LOGOUT':
         return initialState
     case "ADD_USER":
-        return { ...state, users: payload }
+        return { ...state, users: payload.users ,turn: payload.turn}
     case "REMOVE_USER":
         const found = state.users.filter(user=>{
          return  user.id !== payload

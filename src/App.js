@@ -78,11 +78,12 @@ const App = () => {
           },
           received: async (data) => {
             if (data.join){
-              dispatch({type:"ADD_USER",payload:data.connected})
+              dispatch({type:"ADD_USER",payload:{users:data.connected,turn:data.turn}})
               dispatch({type:"ADD_CHAT",payload:data.join})
               
             }else if (data.leave){
-              dispatch({type:"ADD_USER",payload:data.connected})
+              dispatch({type:"ADD_USER",payload:{users:data.connected,turn:data.turn}})
+
               dispatch({type:"ADD_CHAT",payload:data.leave})
               
             }
