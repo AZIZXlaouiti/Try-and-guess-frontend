@@ -4,7 +4,7 @@ import { useSelector  } from 'react-redux'
 const ChatForm = () => {
     const [currentChatMessage, setCurrentChatMessage] = useState('');
     const chats = useSelector(state => state.connections.subscriptions.chats);
-  
+    
     const updateCurrentChatMessage = (event) => {
       setCurrentChatMessage(event.target.value);
     }

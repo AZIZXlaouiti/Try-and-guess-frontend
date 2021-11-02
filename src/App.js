@@ -13,12 +13,14 @@ import SessionFrom from "./components/sessions/sessionForm";
 import { getCurrentUser } from "./components/sessions/auth";
 import { Link } from "@mui/material";
 import Words from "./components/static/Words";
+import UserList from "./components/static/UserList";
 const App = () => {
   const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
   const connection  = useSelector(state => state.connections.subscriptions)
-  const [loading , setLoading ] = useState(true)
   const token = localStorage.getItem("token")
+  const selectedWord = useSelector(state=>state.words)
+
   const [state, setState] = useState({
     mode: "draw",
     pen: "up",
@@ -51,6 +53,21 @@ const App = () => {
           },
         }
       );
+      const wordConnection = cable.subscriptions.create(
+        {
+          channel: "wordChannel",
+          user: session.currentUser.user.username
+        },
+        {
+          connected: () => {
+            //
+          },
+          received: async (data) => {
+            console.log("word",data)
+            // dispatch(setLines(data))
+          }
+        }
+      );
       const chatConnection = cable.subscriptions.create(
         {
           channel: "ChatChannel",
@@ -61,11 +78,11 @@ const App = () => {
           },
           received: async (data) => {
             if (data.join){
-              dispatch({type:"ADD_USER",payload:data.room})
+              dispatch({type:"ADD_USER",payload:data.connected})
               dispatch({type:"ADD_CHAT",payload:data.join})
               
             }else if (data.leave){
-              dispatch({type:"ADD_USER",payload:data.room})
+              dispatch({type:"ADD_USER",payload:data.connected})
               dispatch({type:"ADD_CHAT",payload:data.leave})
               
             }
@@ -106,12 +123,13 @@ const App = () => {
     }
   },[])
 
-  if (!token && loading){
+  if (!token ){
     dispatch({type:"RESET"})
     return (
- <>
+      <>
      
      <SessionFrom/>
+     
 
  </>
     )
@@ -135,6 +153,7 @@ const App = () => {
            logout
           </Link>
         <h1>Chat Message</h1>
+        <UserList/>
         <Words/>
         <Timer/>
       <Canvas/>
