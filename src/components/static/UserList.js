@@ -6,7 +6,7 @@ const UserList = () => {
     const userLis = users.map((user)=>{
         return (
 
-            <li>{user.username}</li>
+            <li>{user.username} points:{user.score}</li>
         )
     })
     return (
