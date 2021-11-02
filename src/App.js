@@ -57,17 +57,21 @@ const App = () => {
           user: session.currentUser.user.username
         },
         {
-          connected: async(data) => {
-            // chatConnection.perform("appear",{
-            //     //
-            // })
+          connected: () => {
           },
           received: async (data) => {
-            if (data.message){
-              // dispatch(setChats(data.message))
-              dispatch({type:"ADD_CHAT",payload:data.message})
-            }else {
-
+            if (data.join){
+              dispatch({type:"ADD_USER",payload:data.room})
+              dispatch({type:"ADD_CHAT",payload:data.join})
+              
+            }else if (data.leave){
+              dispatch({type:"ADD_USER",payload:data.room})
+              dispatch({type:"ADD_CHAT",payload:data.leave})
+              
+            }
+            
+            else {
+ 
               const resp = await JSON.parse(data);
               dispatch({type:"ADD_CHAT",payload:resp.chat_messages})
               
@@ -112,7 +116,6 @@ const App = () => {
  </>
     )
   }
-  console.log("i run ")
   return (
     <div className="App">
     <div className='stage'>
@@ -124,7 +127,7 @@ const App = () => {
               e.preventDefault()
               dispatch({type:"LOGOUT"})
               localStorage.removeItem('token')
-              connection.chats.unsubscribe({user:session.currentUser.user.username})
+              connection.chats.unsubscribe({user: session.currentUser.user.username})
               connection.canvas.unsubscribe()
 
             }}
