@@ -9,7 +9,7 @@ const wordsReducer = (state = initialState, { type, payload }) => {
 
     case "SELECTED_WORD":
         
-        return state[Math.floor(Math.random() * state.length)] 
+        return payload
     case "RESET":
         return initialState    
     default:

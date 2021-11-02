@@ -14,7 +14,7 @@ const ChatForm = () => {
       chats.create( currentChatMessage );
       setCurrentChatMessage('');
     }
-  
+    
     return (
       <div>
         <input
@@ -30,6 +30,7 @@ const ChatForm = () => {
         >
           Send
         </button>
+        <button onClick={()=>chats.start()}>start word</button>
       </div>
     )
 }

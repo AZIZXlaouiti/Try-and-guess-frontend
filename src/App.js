@@ -14,6 +14,7 @@ import { getCurrentUser } from "./components/sessions/auth";
 import { Link } from "@mui/material";
 import Words from "./components/static/Words";
 import UserList from "./components/static/UserList";
+import { CircularProgress } from '@mui/material';
 const App = () => {
   const session = useSelector(state => state.sessions)
   const dispatch = useDispatch()
@@ -86,6 +87,8 @@ const App = () => {
 
               dispatch({type:"ADD_CHAT",payload:data.leave})
               
+            }else if (data.word){
+              dispatch({type:"SELECTED_WORD",payload:data.word.word})
             }
             
             else {
@@ -102,6 +105,9 @@ const App = () => {
               user_id: session.currentUser.user.id
             });
           },
+          start: ()=>{
+            chatConnection.perform("start");
+          }
         }
       );
     
@@ -124,7 +130,7 @@ const App = () => {
     }
   },[])
 
-  if (!token ){
+  if (!session.loggedIn){
     dispatch({type:"RESET"})
     return (
       <>

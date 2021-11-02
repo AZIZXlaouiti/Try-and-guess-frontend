@@ -34,3 +34,5 @@ form .form__custom-button {
   color: rgb(86, 206, 39);
   font-weight: bold;
 }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }

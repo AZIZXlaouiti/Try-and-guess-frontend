@@ -5,12 +5,8 @@ const ChatList = () => {
     const dispatch = useDispatch()
     const token = localStorage.getItem("token")
     const chatLogs = useSelector(state => state.chatLogs)
-    const session = useSelector(state => state.sessions.currentUser.user)
-    const [loading , setLoading ] = useState(true)
-    
     useEffect(()=>{
       dispatch(loadChats())
-      dispatch({type:"SELECTED_WORD"})
     },[token])
     const chatLogLis = chatLogs.map((chat)=>{
       
@@ -31,7 +27,6 @@ const ChatList = () => {
         <div>
             <ul>
             {chatLogLis}
-            
             </ul>
         </div>
     )

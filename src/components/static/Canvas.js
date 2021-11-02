@@ -4,13 +4,14 @@ import { useSelector , useDispatch } from 'react-redux';
 import { clearCanvas, setLines } from '../../actions/canvasLogs';
 const Canvas = () => {
     const [tool, setTool] = useState('pen');
-    const [currentLines , setCurrentLines] = useState([])
+    const session = useSelector(state=>state.sessions)
     const isDrawing = useRef(false);
     const canvas = useSelector(state=>state.connections.subscriptions.canvas)
     const canvasLogs = useSelector(state => state.canvasLogs)
     const dispatch = useDispatch()
-
-
+    if (!session.currentUser.user.username === session.turn.username){
+      isDrawing.current = false
+    }
     const handleSendCanvas = ()=>{
       canvas.create(canvasLogs)
     }
@@ -48,7 +49,8 @@ const Canvas = () => {
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
-      
+        className="cursor-not-allowed"
+        disabled
       >
         <Layer>
           <Text text="Just start drawing" x={5} y={30} />
