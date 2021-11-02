@@ -54,21 +54,21 @@ const App = () => {
           },
         }
       );
-      const wordConnection = cable.subscriptions.create(
-        {
-          channel: "wordChannel",
-          user: session.currentUser.user.username
-        },
-        {
-          connected: () => {
-            //
-          },
-          received: async (data) => {
-            console.log("word",data)
-            // dispatch(setLines(data))
-          }
-        }
-      );
+      // const wordConnection = cable.subscriptions.create(
+      //   {
+      //     channel: "wordChannel",
+      //     user: session.currentUser.user.username
+      //   },
+      //   {
+      //     connected: () => {
+      //       //
+      //     },
+      //     received: async (data) => {
+      //       console.log("word",data)
+      //       // dispatch(setLines(data))
+      //     }
+      //   }
+      // );
       const chatConnection = cable.subscriptions.create(
         {
           channel: "ChatChannel",
@@ -85,11 +85,13 @@ const App = () => {
               
             }else if (data.leave){
               dispatch({type:"ADD_USER",payload:{users:data.connected,turn:data.turn}})
-
               dispatch({type:"ADD_CHAT",payload:data.leave})
               
             }else if (data.word){
               dispatch({type:"SELECTED_WORD",payload:data.word.word})
+              // console.log(data.time,"Timer")
+            }else if (data.timer){
+              dispatch({type:"START_TIMER",payload:data.timer})
             }
             
             else {
@@ -108,6 +110,7 @@ const App = () => {
           },
           start: ()=>{
             chatConnection.perform("start");
+            chatConnection.perform("start_timer")
           }
         }
       );

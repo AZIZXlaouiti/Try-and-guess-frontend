@@ -6,7 +6,7 @@ const timerReducer = (state = initialState, { type, payload }) => {
     switch (type) {
 
     case "START_TIMER":
-        return { ...state,count: state.count -1 }
+        return { ...state,count:payload}
     case "STOP_TIMER":
         return { ...state , running: false  }
     default:
