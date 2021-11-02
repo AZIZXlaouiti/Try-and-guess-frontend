@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 const UserList = () => {
-    const users = useSelector(state=>state.sessions.users)
-
-    const userLis = users.map((user)=>{
+    const session = useSelector(state=>state.sessions)
+    
+    const userLis = session.users.map((user)=>{
         return (
 
-            <li>{user.username} points:{user.score}</li>
+            <li>{user.username} {user.username === session.currentUser.user.username?"(YOU)":null}points:{user.score}</li>
         )
     })
     return (
