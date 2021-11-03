@@ -1,6 +1,7 @@
 import React , {useState}from 'react'
 import { useSelector  } from 'react-redux'
-
+import { Button } from "@mui/material";
+import { TextField } from '@mui/material';
 const ChatForm = () => {
     const [currentChatMessage, setCurrentChatMessage] = useState('');
     const chats = useSelector(state => state.connections.subscriptions.chats);
@@ -36,7 +37,26 @@ const ChatForm = () => {
         >
           Send
         </button>
-        <button onClick={()=>chats.start()}>Start Game</button>
+
+        <TextField
+          fullWidth
+          autoComplete="username"
+          type="username"
+          label='Enter your message...'
+          variant="outlined"
+          value={ currentChatMessage }
+          onChange={ updateCurrentChatMessage }
+        />
+        <Button
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          disabled={true}
+          onClick={()=>chats.start()}
+        >
+          Start Game
+        </Button>
       </div>
     )
 }

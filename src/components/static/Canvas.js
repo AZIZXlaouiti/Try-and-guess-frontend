@@ -2,8 +2,12 @@ import React, { useRef , useState } from 'react';
 import { Stage, Layer, Line, Text } from 'react-konva';
 import { useSelector , useDispatch } from 'react-redux';
 import { clearCanvas, setLines } from '../../actions/canvasLogs';
+import { Paper } from '@mui/material';
+import { Box } from '@mui/system';
+import useMeasure from 'react-use-measure'
 const Canvas = () => {
     const [tool, setTool] = useState('pen');
+    const [ref, bounds] = useMeasure()
     const session = useSelector(state=>state.sessions)
     const isDrawing = useRef(false);
     const canvas = useSelector(state=>state.connections.subscriptions.canvas)
@@ -42,10 +46,20 @@ const Canvas = () => {
       isDrawing.current = false;
     };
     return (
-        <>
-     
+      <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        '& > :not(style)': {
+          m: 1,
+          width: 128,
+          height: 128,
+        },
+      }}
+    >
+     <Paper variant="outlined" ref={ref} >
         <Stage
-        width={700} height={700}
+        width={bounds.width} height={bounds.height} 
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
@@ -82,8 +96,8 @@ const Canvas = () => {
       <button >load</button>
       <button onClick={(e)=>dispatch(clearCanvas())}>clear</button>
 
-      
-    </>
+      </Paper>
+      </Box>
     )
 }
 
