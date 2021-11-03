@@ -91,6 +91,8 @@ const App = () => {
               dispatch({type:"SELECTED_WORD",payload:data.word.word})
             }else if (data.timer){
               dispatch({type:"START_TIMER",payload:data.timer})
+            }else if (data.user){
+              dispatch({type:"ADD_SCORE",payload:data.user})
             }
             
             else {
