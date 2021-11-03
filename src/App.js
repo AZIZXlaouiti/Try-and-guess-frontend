@@ -89,7 +89,6 @@ const App = () => {
               
             }else if (data.word){
               dispatch({type:"SELECTED_WORD",payload:data.word.word})
-              // console.log(data.time,"Timer")
             }else if (data.timer){
               dispatch({type:"START_TIMER",payload:data.timer})
             }
@@ -107,6 +106,11 @@ const App = () => {
               content: chatContent,
               user_id: session.currentUser.user.id
             });
+          },
+          guess: () =>{
+            chatConnection.perform("guess",{
+              user_id: session.currentUser.user.id
+            })
           },
           start: ()=>{
             chatConnection.perform("start");
@@ -135,7 +139,6 @@ const App = () => {
   },[])
 
   if (!session.loggedIn){
-    dispatch({type:"RESET"})
     return (
       <>
      

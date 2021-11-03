@@ -4,7 +4,7 @@ import { useSelector  } from 'react-redux'
 const ChatForm = () => {
     const [currentChatMessage, setCurrentChatMessage] = useState('');
     const chats = useSelector(state => state.connections.subscriptions.chats);
-    
+    const word = useSelector(state => state.words)
     const updateCurrentChatMessage = (event) => {
       setCurrentChatMessage(event.target.value);
     }
@@ -12,8 +12,11 @@ const ChatForm = () => {
     const handleSendEvent = (event) => {
       event.preventDefault();
       if (currentChatMessage !== ""){
-
-        chats.create( currentChatMessage );
+        if (currentChatMessage.toLowerCase() === word){
+           chats.guess()
+        }else {
+          chats.create( currentChatMessage );
+        }
         setCurrentChatMessage('');
       }
     }

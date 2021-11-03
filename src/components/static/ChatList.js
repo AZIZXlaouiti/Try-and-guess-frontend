@@ -15,7 +15,7 @@ const ChatList = () => {
             return (
                 
                 <li key={chat.id}>
-                    {chat.user_id }:{chat.content}
+                    {chat.content}
                 </li>
             )
             
