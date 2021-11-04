@@ -1,7 +1,7 @@
 import React , {useEffect , useState }from 'react'
 import { useDispatch , useSelector} from 'react-redux'
 import { loadChats } from '../../actions/chatLogs'
-import { FixedSizeList as List } from 'react-window';
+import List from '@mui/material/List';
 const ChatList = () => {
     const dispatch = useDispatch()
     const token = localStorage.getItem("token")
@@ -25,10 +25,12 @@ const ChatList = () => {
         }
     })
     return (
-     <ul>
+ 
+  <ul>
 
-         {chatLogLis}
-     </ul>
+      {chatLogLis}
+  </ul>
+    
    
     )
 }

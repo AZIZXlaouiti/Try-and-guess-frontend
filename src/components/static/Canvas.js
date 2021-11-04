@@ -16,7 +16,7 @@ const Canvas = () => {
     if (!session.currentUser.user.username === session.turn.username){
       isDrawing.current = false
     }
-    const handleSendCanvas = ()=>{
+    const handleSendCanvas = (canvasLogs)=>{
       canvas.create(canvasLogs)
     }
     const handleMouseDown = (e) => {
@@ -39,7 +39,7 @@ const Canvas = () => {
       // replace last
       canvasLogs.splice(canvasLogs.length - 1, 1, lastLine);
       dispatch(setLines(canvasLogs.concat()))
-      handleSendCanvas()
+      handleSendCanvas(canvasLogs)
     };
   
     const handleMouseUp = () => {
@@ -52,8 +52,8 @@ const Canvas = () => {
         flexWrap: 'wrap',
         '& > :not(style)': {
           m: 1,
-          width: 128,
-          height: 128,
+          width: 800,
+          height: 600,
         },
       }}
     >
@@ -64,7 +64,6 @@ const Canvas = () => {
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
         className="cursor-not-allowed"
-        disabled
       >
         <Layer>
           <Text text="Just start drawing" x={5} y={30} />
@@ -74,7 +73,7 @@ const Canvas = () => {
               key={i}
               points={line.points}
               stroke="blue"
-              strokeWidth={10}
+              strokeWidth={20}
               tension={0.5}
               lineCap="round"
               globalCompositeOperation={
@@ -94,7 +93,12 @@ const Canvas = () => {
         <option value="eraser">Eraser</option>
       </select>
       <button >load</button>
-      <button onClick={(e)=>dispatch(clearCanvas())}>clear</button>
+      <button onClick={(e)=>{
+
+        dispatch(clearCanvas())
+        handleSendCanvas([])
+      }
+        }>clear</button>
 
       </Paper>
       </Box>
