@@ -62,32 +62,49 @@ const App = () => {
         {
           connected: () => {},
           received: async (data) => {
-            //refactor to switch later
-            if (data.join) {
-              dispatch({
-                type: "ADD_USER",
-                payload: { users: data.connected, turn: data.turn },
-              });
-              dispatch({ type: "ADD_CHAT", payload: data.join });
-            } else if (data.leave) {
-              dispatch({
-                type: "ADD_USER",
-                payload: { users: data.connected, turn: data.turn },
-              });
-              dispatch({ type: "ADD_CHAT", payload: data.leave });
-            } else if (data.word) {
-              dispatch({ type: "SELECTED_WORD", payload: data.word.word });
-            } else if (data.timer) {
-              dispatch({ type: "START_TIMER", payload: data.timer });
-            } else if (data.user) {
-              dispatch({ type: "ADD_SCORE", payload: data.user });
-            } else {
-              const resp = await JSON.parse(data);
-              dispatch({ type: "ADD_CHAT", payload: resp.chat_messages });
-            }
-          },
-          create: (chatContent) => {
-            chatConnection.perform("create", {
+          
+              if(data.timer){
+
+                dispatch({ type: "SET_TIMER", payload: data.timer });
+              }else if (data.join){
+
+                dispatch({
+                  type: "ADD_USER",
+                  payload: { users: data.connected, turn: data.turn },
+                });
+                dispatch({ type: "ADD_CHAT", payload: data.join });
+              }else if (data.leave) {
+
+                dispatch({
+                  type: "ADD_USER",
+                  payload: { users: data.connected, turn: data.turn },
+                });
+                dispatch({ type: "ADD_CHAT", payload: data.leave });
+              }else if (data.word){
+                  dispatch({ type: "SELECTED_WORD", payload: data.word.word });
+              }else if (data.timer) {
+                dispatch({ type: "START_TIMER", payload: data.timer });
+
+              }else if  (data.user) {
+               
+                dispatch({ type: "ADD_SCORE", payload: data.user });
+              }else {
+                try {
+                const resp = await JSON.parse(data);
+                dispatch({ type: "ADD_CHAT", payload: resp.chat_messages });
+              } catch (e) {
+                dispatch({ type: "SET_TIMER", payload: data.timer });
+                 // It's not a valid JSON format
+              }
+            
+              
+              }
+              
+
+              
+            },
+            create: (chatContent) => {
+              chatConnection.perform("create", {
               content: chatContent,
               user_id: session.currentUser.user.id,
             });

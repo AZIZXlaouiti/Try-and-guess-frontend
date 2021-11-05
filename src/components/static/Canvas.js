@@ -92,7 +92,6 @@ const Canvas = () => {
         <option value="pen">Pen</option>
         <option value="eraser">Eraser</option>
       </select>
-      <button >load</button>
       <button onClick={(e)=>{
 
         dispatch(clearCanvas())

@@ -37,7 +37,7 @@ const ChatForm = () => {
         >
           Send
         </button>
-
+{/* 
         <TextField
           fullWidth
           autoComplete="username"
@@ -46,17 +46,13 @@ const ChatForm = () => {
           variant="outlined"
           value={ currentChatMessage }
           onChange={ updateCurrentChatMessage }
-        />
-        <Button
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          disabled={true}
+        /> */}
+        <button
+          // disabled={true}
           onClick={()=>chats.start()}
         >
           Start Game
-        </Button>
+        </button>
       </div>
     )
 }
