@@ -17,6 +17,7 @@ export interface DrawingBoardContextProps {
   handleColorChange: (ev: PickerEvent) => void;
   brushSize: number;
   handleBrushSizeChange: (ev: PickerEvent) => void;
+  clear: (ev: BoardEvent)=> void ;
 }
 
 export const DrawingBoardContext = React.createContext<
@@ -60,6 +61,9 @@ const DrawingBoardProvider = (
   };
   const handleBrushSizeChange = (ev: PickerEvent): void => {
     setBrushSize(parseInt(ev.target.value));
+  };
+  const clear = (ev: BoardEvent): void =>{
+    //
   };
   return (
     <DrawingBoardContext.Provider
