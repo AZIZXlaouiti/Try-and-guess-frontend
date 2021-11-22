@@ -1,26 +1,15 @@
+// import './styles/index.scss';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import StylePicker from './StylePicker';
+import DrawingBoardProvider from './DrawingBoardContext';
+import DrawingBoard from './DrawingBoard';
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DrawingBoardProvider>
+      <DrawingBoard width={800} height={600}></DrawingBoard>
+      <StylePicker></StylePicker>
+    </DrawingBoardProvider>
   );
-}
+};
 
 export default App;
