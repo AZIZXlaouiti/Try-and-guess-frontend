@@ -6,7 +6,7 @@ import {
 const StylePicker: React.FC = () => {
   const context = useContext(DrawingBoardContext) as DrawingBoardContextProps;
   return (
-    <form id="stylepicker-container">
+    <div id="stylepicker-container">
     <label htmlFor="color-picker">Brush color</label>
     <input
       id="color-picker"
@@ -23,7 +23,11 @@ const StylePicker: React.FC = () => {
       value={context.brushSize}
       onChange={context.handleBrushSizeChange}
     />
-  </form>
+      <button 
+     onClick={context.clear}
+    
+  >CLEAR</button>
+  </div>
   );
 };
 export default StylePicker;

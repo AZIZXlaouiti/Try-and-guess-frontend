@@ -1,6 +1,4 @@
-body {
-  background: #6e54ff;
-}
+
 
 #home-container {
   margin: auto;
@@ -46,7 +44,6 @@ canvas {
   margin: auto;
   margin-top: 50px;
   border: 5px solid #b1bffa;
-  border-radius: 10px;
   background: #ffffff;
   grid-column: 2;
   grid-row: 1;
@@ -62,14 +59,8 @@ canvas {
 
 #roundinfo-container {
   display: grid;
-  grid-template-columns: 40% 60%;
-  background: #e6e7eb;
-  padding: 10px;
-  border-radius: 20px;
-  width: 35%;
-  margin: auto;
   text-align: center;
-  font-size: 180%;
+  font-size: 148%;
   text-align: left;
   padding: 10px 20px;
 }

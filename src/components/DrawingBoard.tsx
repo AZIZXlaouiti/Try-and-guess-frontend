@@ -1,8 +1,10 @@
 import React, { useLayoutEffect } from 'react';
+import Chat from './Chat';
 import {
   DrawingBoardContext,
   DrawingBoardContextProps,
 } from './DrawingBoardContext';
+import StylePicker from './StylePicker';
 const styles = {
   canvas: {
     border: '2px solid #333',
@@ -44,8 +46,13 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     context.setCtx(ctx);
   }, []);
   return (
-    <div style={styles.maindiv}>
-    <canvas
+    <>
+      <div className='head' id="roundinfo-container">
+        <div id="round-waiting">Waiting...</div>
+      </div>
+    <div style={styles.maindiv}  id="game-container">
+    <canvas 
+       className='container'
       ref={ref}
       width={props.width}
       height={props.height}
@@ -53,11 +60,11 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       onMouseUp={context.handleMouseUp}
       onMouseMove={context.handleMouseMove}
     ></canvas>
-     <button 
-     onClick={context.clear}
-    
-  >CLEAR</button>
-      </div>
+     <StylePicker></StylePicker>
+      <Chat/>
+    </div>
+    </>
+
   );
 };
 export default DrawingBoard;
