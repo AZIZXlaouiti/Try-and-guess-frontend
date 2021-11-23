@@ -4,7 +4,6 @@ interface DrawingBoardProviderProps {
 }
 type BoardEvent = React.MouseEvent<HTMLCanvasElement, MouseEvent>;
 type PickerEvent = React.ChangeEvent<HTMLInputElement>;
-type ButtonEvent = React.MouseEvent< MouseEvent>
 export interface DrawingBoardContextProps {
   isDrawing: boolean;
   setIsDrawing: (newVal: boolean) => void;
