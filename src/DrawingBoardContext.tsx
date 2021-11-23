@@ -4,7 +4,7 @@ interface DrawingBoardProviderProps {
 }
 type BoardEvent = React.MouseEvent<HTMLCanvasElement, MouseEvent>;
 type PickerEvent = React.ChangeEvent<HTMLInputElement>;
-
+type ButtonEvent = React.MouseEvent< MouseEvent>
 export interface DrawingBoardContextProps {
   isDrawing: boolean;
   setIsDrawing: (newVal: boolean) => void;
@@ -17,7 +17,7 @@ export interface DrawingBoardContextProps {
   handleColorChange: (ev: PickerEvent) => void;
   brushSize: number;
   handleBrushSizeChange: (ev: PickerEvent) => void;
-  clear: (ev: BoardEvent)=> void ;
+  clear: () => void;
 }
 
 export const DrawingBoardContext = React.createContext<
@@ -62,8 +62,10 @@ const DrawingBoardProvider = (
   const handleBrushSizeChange = (ev: PickerEvent): void => {
     setBrushSize(parseInt(ev.target.value));
   };
-  const clear = (ev: BoardEvent): void =>{
-    //
+  const clear = (): void =>{
+    ctx!.fillStyle = "white" ;
+    ctx?.clearRect(0, 0, 800, 600)
+    ctx?.fillRect(0, 0, 800, 600);
   };
   return (
     <DrawingBoardContext.Provider
@@ -79,6 +81,7 @@ const DrawingBoardProvider = (
         brushSize,
         handleBrushSizeChange,
         handleColorChange,
+        clear
       }}
     >
       {props.children}

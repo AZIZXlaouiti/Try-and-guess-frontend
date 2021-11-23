@@ -20,17 +20,9 @@ const styles = {
     margin: "1px",
     height: "50px",
     minWidth: "75px",
-  },
+  }
 
-  colorSwatches: {
-    red: { backgroundColor: "red" },
-    orange: { backgroundColor: "orange" },
-    yellow: { backgroundColor: "yellow" },
-    green: { backgroundColor: "green" },
-    blue: { backgroundColor: "blue" },
-    purple: { backgroundColor: "purple" },
-    black: { backgroundColor: "black" },
-  },
+
 };
 interface DrawingBoardProps {
   width: number;
@@ -61,17 +53,8 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       onMouseUp={context.handleMouseUp}
       onMouseMove={context.handleMouseMove}
     ></canvas>
-     <button onClick={ ()=>{
-        const canvas = ref.current as HTMLCanvasElement;
-        canvas.height = props.height;
-        canvas.width = props.width;
-        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;  ctx.fillStyle = "white";
-        ctx.fillStyle = "grey";
-        ctx.lineWidth = 12;
-        ctx.lineCap = 'round';
-        ctx.clearRect(0, 0, 800, 600);
-        ctx.fillRect(0, 0, 800, 600);}
-     }
+     <button 
+     onClick={context.clear}
     
   >CLEAR</button>
       </div>

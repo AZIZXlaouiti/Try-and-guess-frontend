@@ -14,3 +14,10 @@ code {
 canvas {
   border: 2px solid #333;
 }
+button {
+  border: 0px;
+  margin: 1px;
+  height: 50px;
+  min-Width: 75px;
+  cursor: pointer;
+}
