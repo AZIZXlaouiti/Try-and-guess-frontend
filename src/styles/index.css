@@ -51,9 +51,6 @@ canvas {
 
 #game-container {
   display: grid;
-  grid-template-columns: auto 800px 400px;
-  grid-template-rows: auto auto;
-  row-gap: 10px;
   column-gap: 75px;
 }
 

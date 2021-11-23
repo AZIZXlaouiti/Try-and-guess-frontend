@@ -50,19 +50,21 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       <div className='head' id="roundinfo-container">
         <div id="round-waiting">Waiting...</div>
       </div>
-    <div style={styles.maindiv} >
+    <div id="game-container">
+    <div  >
     <canvas 
        className='container'
-      ref={ref}
-      width={props.width}
-      height={props.height}
-      onMouseDown={context.handleMouseDown}
-      onMouseUp={context.handleMouseUp}
-      onMouseMove={context.handleMouseMove}
-    ></canvas>
+       ref={ref}
+       width={props.width}
+       height={props.height}
+       onMouseDown={context.handleMouseDown}
+       onMouseUp={context.handleMouseUp}
+       onMouseMove={context.handleMouseMove}
+       ></canvas>
      <StylePicker></StylePicker>
-      <Chat/>
     </div>
+      <Chat/>
+           </div>
     </>
 
   );
