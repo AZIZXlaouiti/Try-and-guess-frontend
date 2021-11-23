@@ -6,7 +6,7 @@ import {
 const StylePicker: React.FC = () => {
   const context = useContext(DrawingBoardContext) as DrawingBoardContextProps;
   return (
-    <div id="stylepicker-container">
+    <div id="stylepicker-container" className='features'>
     <label htmlFor="color-picker">Brush color</label>
     <input
       id="color-picker"

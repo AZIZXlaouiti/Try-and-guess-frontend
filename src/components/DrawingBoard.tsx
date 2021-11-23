@@ -50,7 +50,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       <div className='head' id="roundinfo-container">
         <div id="round-waiting">Waiting...</div>
       </div>
-    <div style={styles.maindiv}  id="game-container">
+    <div style={styles.maindiv} >
     <canvas 
        className='container'
       ref={ref}
