@@ -48,7 +48,9 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   return (
     <>
       <div className='head' id="roundinfo-container">
-        <div id="round-waiting">Waiting...</div>
+        <div id='timer' >42</div>
+        <div id="round-waiting"></div>
+        <div id='currentword'>waiting...</div>
       </div>
     <div id="game-container">
     <div  >

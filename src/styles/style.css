@@ -60,4 +60,32 @@ body {
   background-position: right 5px, right 30px top 5px, 0 0;
   background-size: 50px 50px, 50px 50px, 100% 64px;
   background-repeat: no-repeat;
+  display: flex;
+    align-items: center;
 }
+#timer{
+  text-align: center;
+  font-weight: 700;
+  width: 64px;
+  height: 64px;
+  top: -10px;
+  line-height: 72px;
+  background: url(https://skribbl.io/res/clock.gif) no-repeat;
+  background-size: contain;
+}
+.timer-container {
+  position: relative;
+  flex: 0 0 auto;
+  user-select: none;
+  pointer-events: none;
+  width: 48px;
+  height: 48px;
+}
+div#currentword {
+  flex: 1 1 auto;
+  user-select: none;
+  pointer-events: none;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 3px;
+  }

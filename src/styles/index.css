@@ -54,13 +54,7 @@ canvas {
   column-gap: 75px;
 }
 
-#roundinfo-container {
-  display: grid;
-  text-align: center;
-  font-size: 148%;
-  text-align: left;
-  padding: 10px 20px;
-}
+
 #round-waiting {
   grid-column-start: 1;
   grid-column-end: 3;
