@@ -211,3 +211,13 @@ button {
   color: #ffb600;
   cursor: pointer;
 }
+.session{
+  border: 3px solid var(--color-primary);
+  position: relative;
+  background: repeating-radial-gradient( var(--color-secondary), var(--color-secondary) 6px, var(--color-primary) 6px, var(--color-primary) 9px, transparent 0%, transparent 100% ), repeating-radial-gradient( var(--color-secondary), var(--color-secondary) 7px, var(--color-primary) 6px, var(--color-primary) 10px, transparent 0%, transparent 100% ), linear-gradient( var(--color-primary-alt), var(--color-primary-alt) 65px, var(--color-primary) 60px, var(--color-primary) 64px );
+  background-position: right 5px, right 30px top 5px, 0 0;
+  background-size: 50px 50px, 50px 50px, 100% 64px;
+  background-repeat: no-repeat;
+  background-color: var(--color-secondary);
+  align-items: center;
+}
