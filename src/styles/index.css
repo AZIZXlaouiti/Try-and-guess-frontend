@@ -207,3 +207,7 @@ button {
   min-Width: 75px;
   cursor: pointer;
 }
+#intro {
+  color: #ffb600;
+  cursor: pointer;
+}
