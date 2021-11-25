@@ -81,7 +81,7 @@ canvas {
   overflow-x: hidden;
 }
 #chatbox-messages > div {
-  font-size: 110%;
+  font-size: 70%;
   height: auto;
   word-wrap: break-word;
   padding: 5px 10px;
