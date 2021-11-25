@@ -10,7 +10,7 @@ const ChatMessages: React.FC<ChatMessageProps> = ({messages }) => {
         <div
          key={indx}
           data-testid="chatbox-message"
-        //   className={`msg-${message.type}`}
+          className={`msg-good`}
         >
        
               <b>{username}:</b> {content}

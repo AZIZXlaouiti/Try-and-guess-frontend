@@ -12,7 +12,7 @@ const Chat: React.FC = () => {
                  console.log('connected')
             },
             received :async(data)=> {
-                //   setMessage(data.chat_msg)
+                  setMessage(data.chat_msg)
                 console.log(data)
             },
             create: (chatContent:ChatMsg[]) => {
