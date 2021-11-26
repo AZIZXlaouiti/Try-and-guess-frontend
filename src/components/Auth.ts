@@ -1,8 +1,8 @@
 
-import { BASE_URL } from "../../root"
+import { Form } from '../reducers/type'
+const BASE_URL = 'http://localhost:3001'
 
-
-export const login = async (form) => {
+export const login = async (form:Form) => {
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
     const body = form
@@ -11,7 +11,7 @@ export const login = async (form) => {
     return data
 }
 
-export const signup = async (form) => {
+export const signup = async (form:Form) => {
 
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
@@ -23,8 +23,8 @@ export const signup = async (form) => {
     return data
 }
 
-export const getCurrentUser = (token) => {
-    return async dispatch =>{
+export const getCurrentUser = (token:string) => {
+    return async (dispatch:any) =>{
 
         
         const headers = { 
