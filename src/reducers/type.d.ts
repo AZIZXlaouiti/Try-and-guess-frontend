@@ -16,3 +16,6 @@ type SessionProp = {
     user:User |null
     token:string | null
   }
+type SubscriptionsProp = {
+    //
+}  
