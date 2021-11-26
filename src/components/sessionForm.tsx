@@ -25,7 +25,7 @@ const SessionForm: React.FC=()=>{
           [ev.target.name]: ev.target.value,
         });
       };
-      const handleSubmit = (e:any) => {
+      const handleSubmit = (e:any):void => {
         e.preventDefault()
         if (isSignup){
    

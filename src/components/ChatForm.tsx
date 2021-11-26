@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 const ChatForm: React.FC = () => {
   const [chatInput, setChatInput] = React.useState('');
+  const chat= useSelector((state:any)=> state.connections.chats)
   return (
     <form
       id="chatbox-form"
@@ -9,8 +11,8 @@ const ChatForm: React.FC = () => {
         if (chatInput === '') {
           return;
         }
-        // socket.emit('chatMsg', { type: 'chat', msg: chatInput });
-        // setChatInput('');
+        chat.create(chatInput)
+        setChatInput('');
       }}
     >
       <input
@@ -19,6 +21,7 @@ const ChatForm: React.FC = () => {
         value={chatInput}
         onChange={(ev): void => setChatInput(ev.target.value)}
       />
+      <button type='submit'>submit</button>
     </form>
   );
 };

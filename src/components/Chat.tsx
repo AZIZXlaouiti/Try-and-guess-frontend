@@ -2,27 +2,37 @@ import React  , {useEffect} from 'react'
 import ActionCable from 'actioncable'
 import ChatForm from './ChatForm'
 import ChatMessages , { ChatMsg } from './ChatMessage'
+import { useSelector } from 'react-redux';
+import { SessionProp } from '../reducers/type';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'react';
 const Chat: React.FC = () => {
-
+    const dispatch:Dispatch<any> = useDispatch()
     const [message , setMessage] = React.useState<ChatMsg[]>([])
+    const session:SessionProp= useSelector((state:any)=> state.sessions)
     useEffect(()=>{
-        const cable  = ActionCable.createConsumer("ws://localhost:3001/cable")
-        const chatConnection = cable.subscriptions.create('ChatChannel',{
-            connected():void{
-                 console.log('connected')
-            },
-            received :async(data)=> {
-                  setMessage(data.chat_msg)
-                console.log(data)
-            },
-            create: (chatContent:ChatMsg[]) => {
-                chatConnection.perform("create", {
-                content: chatContent,
-                user_id: 2
-              });
-            }
-    })
-},[])  
+        const createSocket=():void=>{
+        
+            const cable  = ActionCable.createConsumer("ws://localhost:3001/cable")
+            const chatConnection = cable.subscriptions.create('ChatChannel',{
+                connected():void{
+                },
+                received :async(data)=> {
+                      setMessage(data.chat_msg)
+                },
+                create: (chatContent:ChatMsg[]) => {
+                    chatConnection.perform("create", {
+                    content: chatContent,
+                    user_id: session.user?.id
+                  });
+                }
+        })
+        dispatch({type:"SET_CHAT_SUBSCRIPTION",payload:chatConnection});
+        }
+    if (session.user){
+       createSocket()
+    }
+},[])   
    return (
        <div id="chatbox-container">
            <ChatMessages messages={message}/>

@@ -12,7 +12,6 @@ import { getCurrentUser } from './Auth';
 const App: React.FC = () => {
   const dispatch:Dispatch<any> = useDispatch()
   const session:SessionProp= useSelector((state:any)=> state.sessions)
-  console.log('session',session)
   const token = localStorage.getItem('token')
   useEffect(()=>{
     if (token) {
@@ -26,8 +25,8 @@ const App: React.FC = () => {
           variant="subtitle2"
           underline="hover"
           component="button"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(ev):void => {
+            ev.preventDefault();
             dispatch({ type: "LOGOUT" });
             localStorage.removeItem("token");
           }}
