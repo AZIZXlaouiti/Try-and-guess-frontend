@@ -13,6 +13,6 @@ type UserAction = {
     payload:User
 }
 type SessionProp = {
-    user:User 
-    token:string
+    user:User |null
+    token:string | null
   }

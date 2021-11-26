@@ -23,24 +23,24 @@ export const signup = async (form:Form) => {
     return data
 }
 
-// export const getCurrentUser = (token:string) => {
-//     return async dispatch =>{
+export const getCurrentUser = (token:string) => {
+    return async (dispatch:any) =>{
 
         
-//         const headers = { 
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//             }
-//         const response = await fetch(`${BASE_URL}/profile`, 
-//                  {
-//                     headers: headers 
-//                 })
-//         const data = await response.json()
+        const headers = { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+            }
+        const response = await fetch(`${BASE_URL}/profile`, 
+                 {
+                    headers: headers 
+                })
+        const data = await response.json()
        
-//         if(data.user) {
-//             dispatch({ type: "LOGIN", payload: data })
-//           }
-//     }
+        if(data.user) {
+            dispatch({ type: "LOGIN", payload: data })
+          }
+    }
 
-// }
+}
