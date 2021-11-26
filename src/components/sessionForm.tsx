@@ -1,9 +1,13 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 import { Icon } from "@iconify/react";
+import { signup , login } from './Auth';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'react';
 import { Stack , TextField , IconButton, InputAdornment ,  Button ,Typography,Link }from "@mui/material";
 const SessionForm: React.FC=()=>{
+    const dispatch:Dispatch<any> = useDispatch()
     const [show , setShow] = React.useState(false)
     const [isSignup , setSignup ] = React.useState(true)
     const [error, setError] = React.useState('')
@@ -13,14 +17,54 @@ const SessionForm: React.FC=()=>{
       username: "",
       password: "",
     });
+    const handleChange = (ev:any):void => {
+        ev.preventDefault()
+        setError('')
+        setForm({
+          ...form,
+          [ev.target.name]: ev.target.value,
+        });
+      };
+      const handleSubmit = (e:any) => {
+        e.preventDefault()
+        if (isSignup){
+   
+          signup(form)
+          .then(data=>{
+            if (data.message){
+              setError(data.message)
+            }else {
+              dispatch({ type: "LOGIN", payload: data})
+             localStorage.setItem('token', data.token);
+             }
+           })
+        }else{
+          login(form)
+          .then(data=>{
+           if (data.errors){
+             setError(data.errors)
+           }else {
+             dispatch({ type: "LOGIN", payload: data})
+             localStorage.setItem('token', data.token);
+            }
+        })
+       };
+     }
+     useEffect(() => {
+        if (!Object.values(form).some((value) => value === "")) {
+          setReady(true);
+        } else {
+          setReady(false);
+        }
+      }, [form]);
   return (
       show 
       ?  
       <form
       className='session'
       id="chatbox-messages"
-    //   onChange={handleChange}
-    //     onSubmit={handleSubmit}
+      onChange={handleChange}
+        onSubmit={handleSubmit}
       >
         <Stack spacing={3}>
           <h1>{isSignup ? "Signup":"Login"}</h1>
@@ -31,7 +75,7 @@ const SessionForm: React.FC=()=>{
             type="username"
             label="username"
             name="username"
-            // error={error}
+            error={!!error}
             variant="outlined"
   
           />
@@ -66,9 +110,9 @@ const SessionForm: React.FC=()=>{
           >
             Register
           </Button>
-          {/* <Typography sx={{color: 'red'}} >
+          <Typography sx={{color: 'red'}} >
                           {error ? `Oops ..${error}` : null}
-                      </Typography> */}
+                      </Typography>
           <Typography variant="body2" align="center" sx={{ mt: 3 }}>
             {isSignup ? "Already have an account?":"Don't have an account?"} &nbsp;
             <Link

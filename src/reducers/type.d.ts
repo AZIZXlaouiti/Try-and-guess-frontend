@@ -4,7 +4,15 @@ export interface User{
  id: number
  online: boolean
 }
-type UserAction ={
+export type Form = {
+    username:string
+    password:string
+}
+type UserAction = {
     type: string
     payload:User
 }
+type SessionProp = {
+    user:User 
+    token:string
+  }
