@@ -21,7 +21,7 @@ const App: React.FC = () => {
   },[])
   return (
     <>
-    {session.token?<DrawingBoardProvider>
+    {session.user?<DrawingBoardProvider>
       <Link
           variant="subtitle2"
           underline="hover"
