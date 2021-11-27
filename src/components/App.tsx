@@ -9,8 +9,10 @@ import { useSelector } from 'react-redux';
 import { User } from '../reducers/type'
 import { SessionProp } from '../reducers/type';
 import { getCurrentUser } from './Auth';
+import Chat from './Chat';
 const App: React.FC = () => {
   const dispatch:Dispatch<any> = useDispatch()
+  const chat= useSelector((state:any)=> state.connections.chats)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const token = localStorage.getItem('token')
   useEffect(()=>{
@@ -29,7 +31,10 @@ const App: React.FC = () => {
             ev.preventDefault();
             dispatch({ type: "LOGOUT" });
             localStorage.removeItem("token");
-          }}
+            chat.unsubscribe({
+              user:session.user!.username
+            })
+           }}
         >
           logout
         </Link>

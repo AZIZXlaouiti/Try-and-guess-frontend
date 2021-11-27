@@ -4,6 +4,7 @@ import {
   DrawingBoardContext,
   DrawingBoardContextProps,
 } from './DrawingBoardContext';
+import { ScoreBoard } from './ScoreBoard';
 import StylePicker from './StylePicker';
 const styles = {
   canvas: {
@@ -53,6 +54,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         <div id='currentword'>waiting...</div>
       </div>
     <div id="game-container">
+      <ScoreBoard/>
     <div  >
     <canvas 
        className='container'

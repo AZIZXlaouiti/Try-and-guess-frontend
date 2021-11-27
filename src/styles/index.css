@@ -15,7 +15,14 @@
   padding: 10px 5px;
   font-size: 110%;
 }
-
+#loading{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url(https://skribbl.io/res/load.gif);
+}
 .btn {
   padding: 7px 15px;
   border: none;
