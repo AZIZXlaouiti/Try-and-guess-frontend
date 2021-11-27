@@ -1,6 +1,6 @@
 
 import { Form } from '../reducers/type'
-const BASE_URL = process.env.BASE_URL || 'localhost:3001'
+const BASE_URL =  'localhost:3001'
 
 export const login = async (form:Form) => {
     const method = "POST"
