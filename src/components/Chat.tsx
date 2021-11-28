@@ -7,7 +7,7 @@ import { SessionProp } from '../reducers/type';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
 const Chat: React.FC = () => {
-    const url = 'localhost:3001'
+    const url = process.env.BASE_URL||'localhost:3001'
     const dispatch:Dispatch<any> = useDispatch()
     const [message , setMessage] = React.useState<ChatMsg[]>([])
     const session:SessionProp= useSelector((state:any)=> state.sessions)

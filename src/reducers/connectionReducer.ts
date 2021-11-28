@@ -4,7 +4,7 @@ const initialState = {
     subscriptions: {}
   }
   
-  const connectionsReducer =  (state = initialState, { type, payload }) => {
+  const connectionsReducer =  (state = initialState, { type, payload }:any) => {
     switch (type) {
       case "SET_CHAT_SUBSCRIPTION":
         return {

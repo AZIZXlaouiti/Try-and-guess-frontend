@@ -1,4 +1,4 @@
-import { User, UserAction } from "./type"
+import {  UserAction } from "./type"
 const initialState = {
    
 }
