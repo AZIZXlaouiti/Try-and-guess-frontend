@@ -1,6 +1,6 @@
 
 import { Form } from '../reducers/type'
-const BASE_URL =  process.env.BASE_URL||'https://try-and-guess-api.herokuapp.com/'
+const BASE_URL =  'https://try-and-guess-api.herokuapp.com/'
 
 export const login = async (form:Form) => {
     const method = "POST"
