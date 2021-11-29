@@ -7,7 +7,7 @@ import { SessionProp } from '../reducers/type';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
 const Chat: React.FC = () => {
-    const url = 'try-and-guess-api.herokuapp.com'
+    const url = process.env.BASE_URL||'try-and-guess-api.herokuapp.com'
     const dispatch:Dispatch<any> = useDispatch()
     const [message , setMessage] = React.useState<ChatMsg[]>([])
     const session:SessionProp= useSelector((state:any)=> state.sessions)
