@@ -1,12 +1,12 @@
-const initialState = {
+const initialState:any = [
 
-}
+]
 
 const channelLogsReducer =  (state = initialState, { type, payload }:any) => {
     switch (type) {
 
     case "SET_ACTIVE_ROOM_USER":
-        return {...payload}
+        return [...payload]
 
     default:
         return state
