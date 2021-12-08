@@ -51,7 +51,9 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       <div className='head' id="roundinfo-container">
         <div id='timer' >42</div>
         <div id="round-waiting"></div>
+        {/* if room == full ? choosing word : waiting */}
         <div id='currentword'>waiting...</div>
+        <button>start</button>
       </div>
     <div id="game-container">
       <ScoreBoard/>

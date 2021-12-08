@@ -240,6 +240,7 @@ button {
   height: 50px;
   min-Width: 75px;
   cursor: pointer;
+  border: 2px solid;
 }
 #intro {
   color: #ffb600;
