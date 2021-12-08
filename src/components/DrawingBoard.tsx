@@ -42,7 +42,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     const canvas = ref.current as HTMLCanvasElement;
     canvas.height = props.height;
     canvas.width = props.width;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D; 
     ctx.lineWidth = context.brushSize;
     ctx.lineCap = 'round';
     context.setCtx(ctx);
@@ -54,7 +54,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         <div id='timer' >42</div>
         <div id="round-waiting"></div>
         {/* if room == full ? choosing word : waiting */}
-        <div id='currentword'>{players.length > 1 ? 'the match is about to start': 'waiting...'}</div>
+        <div id='currentword'>{players.length > 1 ? 'waiting...':`need 0${2-players.length} more player to start`}</div>
         <button>start</button>
       </div>
     <div id="game-container">

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { SessionProp } from '../reducers/type';
+import { useSelector } from 'react-redux';
 interface DrawingBoardProviderProps {
   children: React.ReactNode;
 }
@@ -18,7 +20,10 @@ export interface DrawingBoardContextProps {
   handleBrushSizeChange: (ev: PickerEvent) => void;
   clear: () => void;
 }
-
+export interface GameContextProps {
+  drawingPermission: boolean;
+}
+const GameContext = React.createContext<Partial<GameContextProps>>({});
 export const DrawingBoardContext = React.createContext<
   Partial<DrawingBoardContextProps>
 >({});
@@ -26,12 +31,18 @@ export const DrawingBoardContext = React.createContext<
 const DrawingBoardProvider = (
   props: DrawingBoardProviderProps
 ): JSX.Element => {
+  const session:SessionProp= useSelector((state:any)=> state.sessions)
+  const context = React.useContext(GameContext)
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [color, setColor] = useState('#ff0000');
   const [brushSize, setBrushSize] = useState(10);
+  // const [context.drawingPermission, setDrawingPermission] = React.useState(false);
+  if (session.user!.username === 'john'){
+    context.drawingPermission = true
+  }
   const draw = (ev: BoardEvent) => {
-    if (!ctx || !isDrawing) {
+    if (!ctx || !isDrawing || !context.drawingPermission) {
       return;
     }
     ctx.strokeStyle = color;

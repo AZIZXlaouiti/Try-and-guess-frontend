@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { SessionProp } from '../reducers/type';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
-import { isConcatSpreadable } from 'core-js/fn/symbol'
 const Chat: React.FC = () => {
     const url = process.env.REACT_APP_URL
     const dispatch:Dispatch<any> = useDispatch()
