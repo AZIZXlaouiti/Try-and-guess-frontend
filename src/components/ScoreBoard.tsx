@@ -11,6 +11,7 @@ export const ScoreBoard: React.FC = ()=>{
                           <div className='player'>
                           <div className='avatar'><div className='img'></div></div>
                           <div className='info' key={i}>{e.username}</div>
+                          <div>points:{e.score}</div>
                           </div>
              )
                           })
