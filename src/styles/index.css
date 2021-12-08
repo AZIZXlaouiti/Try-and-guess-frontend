@@ -155,6 +155,7 @@ canvas {
   font-size: 76%;
   padding: 5px 10px;
   align-items: center;
+  
 }
 #scoreboard > div {
   display: grid;
@@ -174,6 +175,26 @@ canvas {
 }
 #scoreboard > div:nth-of-type(odd) {
   background: #ffffff;
+}
+.avatar{
+    pointer-events: none;
+    user-select: none;
+    position: relative;
+    flex: 0 0 auto;
+    /* height: 48px;
+    width: 48px; */
+}
+.avatar div{
+  background-image: url(https://skribbl.io/res/avatar/color_atlas.gif);
+  background-repeat: no-repeat;
+  background-size: 480px 480px;
+  background-position: -336px 0px;
+  width: inherit;
+  height: 48px;
+  width: 100%;
+}
+.info{
+  margin-right: 81px;
 }
 #overlay {
   border: 5px solid #050505;
