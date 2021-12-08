@@ -242,6 +242,16 @@ button {
   cursor: pointer;
   border: 2px solid;
 }
+#pencil {
+  position: absolute;
+  width: 26px;
+  height: 42px;
+  left: 237%;
+  top: 3px;
+  z-index: 2;
+  background-image: url(https://skribbl.io/res/pen.gif);
+  background-size: contain;
+}
 #intro {
   color: #ffb600;
   cursor: pointer;
