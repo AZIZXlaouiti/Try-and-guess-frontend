@@ -1,4 +1,5 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect  } from 'react';
+import { useSelector } from 'react-redux'
 import Chat from './Chat';
 import {
   DrawingBoardContext,
@@ -46,13 +47,14 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     ctx.lineCap = 'round';
     context.setCtx(ctx);
   }, []);
+  const players = useSelector((state:any)=> state.channels)
   return (
     <>
       <div className='head' id="roundinfo-container">
         <div id='timer' >42</div>
         <div id="round-waiting"></div>
         {/* if room == full ? choosing word : waiting */}
-        <div id='currentword'>waiting...</div>
+        <div id='currentword'>{players.length > 1 ? 'the match is about to start': 'waiting...'}</div>
         <button>start</button>
       </div>
     <div id="game-container">
