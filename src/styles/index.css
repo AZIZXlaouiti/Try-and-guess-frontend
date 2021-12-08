@@ -156,6 +156,9 @@ canvas {
     width: 187px;
   
 }
+#name {
+  color: rgb(0, 0, 255);
+}
 #scoreboard > div {
   display: grid;
   grid-template-columns: 30% 70%;
