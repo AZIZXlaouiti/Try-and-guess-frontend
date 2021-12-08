@@ -9,9 +9,9 @@ export const ScoreBoard: React.FC = ()=>{
 
              return (
                
-                          <div className='player'>
+                          <div className='player'key={i}>
                           <div className='avatar'><div className='img'><span id="pencil"></span></div></div>
-                          <div className='info' key={i}><div>{e.username}</div>{currentUser.username === e.username ? <div id='name'>(You)</div>:null}</div>
+                          <div className='info' ><div>{e.username}</div>{currentUser.username === e.username ? <div id='name'>(You)</div>:null}</div>
                           <div>points:{e.score}</div>
                           </div>
              )

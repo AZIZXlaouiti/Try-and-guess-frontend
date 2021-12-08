@@ -21,10 +21,7 @@ const App: React.FC = () => {
   return (
     <>
     {session.user?<DrawingBoardProvider>
-      <Link
-          variant="subtitle2"
-          underline="hover"
-          component="button"
+      <button
           onClick={(ev):void => {
             ev.preventDefault();
             dispatch({ type: "LOGOUT" });
@@ -34,9 +31,9 @@ const App: React.FC = () => {
               user:session.user!.username
           })
            }}
-        >
+        > 
           logout
-        </Link>
+        </button>
     <DrawingBoard width={800} height={600}></DrawingBoard>
   </DrawingBoardProvider> :<SessionForm/>}
     
