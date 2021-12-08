@@ -45,8 +45,8 @@ const Chat: React.FC = () => {
                 connected():void{
                 },
                 received :async(data)=> {
-                     console.log("room active users",data.room)
-                     dispatch({type:"SET_ACTIVE_ROOM_USER",payload:data.room});
+                     dispatch({type:"SET_ACTIVE_ROOM_USER",payload:data.members});
+                     dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
                 },
             })
         dispatch({type:"SET_CHAT_SUBSCRIPTION",payload:chatConnection});

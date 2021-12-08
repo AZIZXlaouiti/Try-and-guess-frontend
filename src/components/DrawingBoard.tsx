@@ -48,7 +48,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     ctx.lineCap = 'round';
     context.setCtx(ctx);
   }, []);
-  const players = useSelector((state:any)=> state.channels)
+  const players = useSelector((state:any)=> state.channels.activeUsers)
   const roundTime = {
     timeToComplete:80,
     startTime:Date.now()

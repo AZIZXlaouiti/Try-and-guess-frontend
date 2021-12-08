@@ -9,8 +9,8 @@ type RoundTime = {
   };
 
 const Timer: React.FC<TimerProps> = ({ roundTime }) => {
-  const [time, setTime] = React.useState(
-    (roundTime.timeToComplete + roundTime.startTime - Date.now())+20*1000
+  const [time, setTime] = React.useState( 0
+    // (roundTime.timeToComplete + roundTime.startTime - Date.now())+20*1000
   );
   React.useEffect(() => {
     let isStart = true;
