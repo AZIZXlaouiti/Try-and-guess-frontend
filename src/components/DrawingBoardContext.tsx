@@ -37,7 +37,6 @@ const DrawingBoardProvider = (
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [color, setColor] = useState('#ff0000');
   const [brushSize, setBrushSize] = useState(10);
-  // const [context.drawingPermission, setDrawingPermission] = React.useState(false);
   if (session.user!.username === 'john'){
     context.drawingPermission = true
   }
