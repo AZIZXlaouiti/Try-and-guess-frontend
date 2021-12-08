@@ -11,6 +11,7 @@ import { getCurrentUser } from './Auth';
 const App: React.FC = () => {
   const dispatch:Dispatch<any> = useDispatch()
   const chat= useSelector((state:any)=> state.connections.chats)
+  const room= useSelector((state:any)=> state.connections.room)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const token = localStorage.getItem('token')
   useEffect(()=>{
@@ -26,6 +27,7 @@ const App: React.FC = () => {
             ev.preventDefault();
             dispatch({ type: "LOGOUT" });
             localStorage.removeItem("token");
+            room.unsubscribe()
             chat.unsubscribe()
             chat.perform("disconnect",{
               user:session.user!.username

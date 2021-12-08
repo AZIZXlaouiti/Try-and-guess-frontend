@@ -17,7 +17,7 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
     setTimeout(() => {
       if (isStart) {
         const newTime =
-        (roundTime.timeToComplete + roundTime.startTime - Date.now())+20*1000
+        (roundTime.timeToComplete + roundTime.startTime - 80)+80*1000
         if (Math.round(newTime / 1000) < 0) {
           return;
         }

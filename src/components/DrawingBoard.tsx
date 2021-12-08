@@ -48,10 +48,12 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     ctx.lineCap = 'round';
     context.setCtx(ctx);
   }, []);
-  const players = useSelector((state:any)=> state.channels.activeUsers)
+  const room = useSelector((state:any)=> state.channels)
+  const players = room.activeUsers 
+  const info = room.description 
   const roundTime = {
     timeToComplete:80,
-    startTime:Date.now()
+    startTime:80
   }
   return (
     <>
@@ -59,6 +61,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         <Timer roundTime = {roundTime}/>
         <div id="round-waiting"></div>
         {/* if room == full ? choosing word : waiting */}
+        <div id='round'>{`Round ${info.round }/3`}</div>
         <div id='currentword'>{players.length > 1 ? 'waiting...':`need 0${2-players.length} more player to start`}</div>
         <button>start</button>
       </div>
