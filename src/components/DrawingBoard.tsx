@@ -7,6 +7,7 @@ import {
 } from './DrawingBoardContext';
 import { ScoreBoard } from './ScoreBoard';
 import StylePicker from './StylePicker';
+import Timer from './Timer';
 const styles = {
   canvas: {
     border: '2px solid #333',
@@ -48,10 +49,14 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     context.setCtx(ctx);
   }, []);
   const players = useSelector((state:any)=> state.channels)
+  const roundTime = {
+    timeToComplete:80,
+    startTime:Date.now()
+  }
   return (
     <>
       <div className='head' id="roundinfo-container">
-        <div id='timer' >42</div>
+        <Timer roundTime = {roundTime}/>
         <div id="round-waiting"></div>
         {/* if room == full ? choosing word : waiting */}
         <div id='currentword'>{players.length > 1 ? 'waiting...':`need 0${2-players.length} more player to start`}</div>
