@@ -13,6 +13,7 @@ import Timer from './Timer';
 import { SessionProp } from '../reducers/type';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
+import { encode } from 'punycode';
 interface DrawingBoardProps {
   width: number;
   height: number;
@@ -33,28 +34,41 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     context.setCtx(ctx);
   }, []);
   const dispatch:Dispatch<any> = useDispatch()
+  const [reveal , setReEveal] = React.useState(false)
   const room = useSelector((state:any)=> state.channels)
   const roomConnection = useSelector((state:any)=> state.connections.room)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
   const info = room.description 
   const chosenWord = info.chosen_word
+  
   const roundTime = {
     timeToComplete:80,
     startTime:Date.now()
   }
   const pickRandomWord = (): void  =>{
     if (players.length === info.max_round){
-      if (players[info.round -1 ].username === session.user!.username){
+      if (players[info.round -1 ].username === session.user!.username){ 
         const word = words[Math.floor(Math.random() * words.length)]
         roomConnection.perform("start",{
               word: word
         })
+        setReEveal(true)
       }
   
     }
   }
-
+  const encode = (word:string):string=>{
+    let str = ''
+      for (const value of word){
+        if (value !== " "){
+        str += "-"
+        }else {
+        str += ' '
+         }
+      }
+   return str
+  }
   const counter:number = useSelector((state:any)=> state.channels.description.counter)
   return (
     <>
@@ -63,7 +77,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? `${ players[info.round -1 ].username === session.user!.username?chosenWord:"----" }`:`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${ reveal ?chosenWord: encode(chosenWord) }`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
