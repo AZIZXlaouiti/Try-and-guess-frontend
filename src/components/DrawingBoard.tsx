@@ -11,7 +11,8 @@ import StylePicker from './StylePicker';
 import Timer from './Timer';
 
 import { SessionProp } from '../reducers/type';
-
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'react';
 interface DrawingBoardProps {
   width: number;
   height: number;
@@ -31,6 +32,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     ctx.lineCap = 'round';
     context.setCtx(ctx);
   }, []);
+  const dispatch:Dispatch<any> = useDispatch()
   const room = useSelector((state:any)=> state.channels)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
@@ -42,7 +44,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   const pickRandomWord = (): void  =>{
     if (players.length === info.max_round){
       if (players[info.round -1 ].username === session.user!.username){
-        console.log("word",words[Math.floor(Math.random() * words.length)]);
+        dispatch({type:"SET_CHOSEN_WORD",payload:words[Math.floor(Math.random() * words.length)]});
       }
   
     }

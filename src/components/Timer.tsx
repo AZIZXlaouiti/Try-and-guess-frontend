@@ -18,7 +18,7 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
   
   React.useEffect(
     () => {
-        if (currentCount <= 0) {
+        if (currentCount < 0) {
             return;
         }
         const id = setInterval(()=>{

@@ -1,7 +1,8 @@
 const initialState:any = {
     description:{},
     activeUsers:[],
-    canvas:{}
+    canvas:{},
+    word:""
 }
 
 const channelLogsReducer =  (state = initialState, { type, payload }:any) => {
@@ -22,7 +23,12 @@ const channelLogsReducer =  (state = initialState, { type, payload }:any) => {
         return {
             ...state , 
             canvas:payload
-        }    
+        } 
+    case "SET_CHOSEN_WORD":
+        return {
+            ...state,
+            word : payload
+        }       
     default:
         return state
     }
