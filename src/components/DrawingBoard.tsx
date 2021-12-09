@@ -60,7 +60,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? `${chosenWord}`:`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${chosenWord || "----"}`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
