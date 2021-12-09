@@ -34,10 +34,11 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   }, []);
   const dispatch:Dispatch<any> = useDispatch()
   const room = useSelector((state:any)=> state.channels)
+  const roomConnection = useSelector((state:any)=> state.connections.room)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
   const info = room.description 
-  const chosenWord = room.word
+  const chosenWord = info.chosen_word
   const roundTime = {
     timeToComplete:80,
     startTime:Date.now()
@@ -45,14 +46,16 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   const pickRandomWord = (): void  =>{
     if (players.length === info.max_round){
       if (players[info.round -1 ].username === session.user!.username){
-        dispatch({type:"SET_CHOSEN_WORD",payload:words[Math.floor(Math.random() * words.length)]});
-
+        const word = words[Math.floor(Math.random() * words.length)]
+        roomConnection.perform("start",{
+              word: word
+        })
       }
   
     }
   }
+
   const counter:number = useSelector((state:any)=> state.channels.description.counter)
- 
   return (
     <>
       <div className='head' id="roundinfo-container">
@@ -60,7 +63,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? `${chosenWord || "----"}`:`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${ players[info.round -1 ].username === session.user!.username?chosenWord:"----" }`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">

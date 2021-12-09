@@ -46,7 +46,10 @@ const Chat: React.FC = () => {
                 connected():void{
                 },
                 received :async(data)=> {
-                    if ("counter" in data){
+                    if ("word" in  data){
+                        dispatch({type:"ROOM_DESCRIPTION",payload:data.word});
+                    }
+                    else if  ("counter" in data){
                         dispatch({type:"ROOM_DESCRIPTION",payload:data.counter});
                         return 
                     }else {
@@ -54,13 +57,9 @@ const Chat: React.FC = () => {
                         dispatch({type:"SET_ACTIVE_ROOM_USER",payload:data.members});
                         dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
                     }
-                },
-                start():void{
-                    roomConnection.perform('start',{
-                        start:true 
-
-                    })
                 }
+              
+                
             })
             const canvasConnection = cable.subscriptions.create('SketchChannel',{
                     connected():void{
