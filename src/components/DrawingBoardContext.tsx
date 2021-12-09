@@ -62,6 +62,7 @@ const DrawingBoardProvider = (
       brushSize,
       isEnding
     };
+    load(newLine)
     canvasConnection.perform('create',{
       canvas: newLine
     })
