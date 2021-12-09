@@ -34,7 +34,6 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
     },
     [currentCount]
 );
-      console.log('count',currentCount)
   return <div id='timer'>{counter}</div>;
 };
 export default Timer;

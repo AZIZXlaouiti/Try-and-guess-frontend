@@ -1,4 +1,8 @@
-import React  , {useEffect} from 'react'
+import React  , {useEffect , useContext} from 'react'
+import {
+    DrawingBoardContext,
+    DrawingBoardContextProps,
+  } from './DrawingBoardContext';
 import ActionCable from 'actioncable'
 import ChatForm from './ChatForm'
 import ChatMessages  from './ChatMessage'
@@ -12,6 +16,7 @@ const Chat: React.FC = () => {
     const dispatch:Dispatch<any> = useDispatch()
     const [message , setMessage] = React.useState<ChatMsg[]>([])
     const [canvas , setCanvas] = React.useState<[]>([])
+    const context = useContext(DrawingBoardContext) as DrawingBoardContextProps;
     const session:SessionProp= useSelector((state:any)=> state.sessions)
     const cable  = ActionCable.createConsumer(`ws://${url}/cable`)
     useEffect(()=>{
@@ -61,8 +66,10 @@ const Chat: React.FC = () => {
                     connected():void{
                     },
                     received :async(data)=> {
-                        console.log("canvas" , data)
-                        dispatch({type:"SET_CANVAS_LOGS",payload:data.canvas});
+                        console.log("canvas" , data.canvas)
+                        context.load(data.canvas)
+                        
+                        // dispatch({type:"SET_CANVAS_LOGS",payload:data.canvas});
                         
                     }
             })

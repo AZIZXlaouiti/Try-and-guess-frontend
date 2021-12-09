@@ -1,6 +1,7 @@
 import React, { useLayoutEffect  } from 'react';
 import { useSelector } from 'react-redux'
 import Chat from './Chat';
+import { words } from './words';
 import {
   DrawingBoardContext,
   DrawingBoardContextProps,
@@ -8,27 +9,9 @@ import {
 import { ScoreBoard } from './ScoreBoard';
 import StylePicker from './StylePicker';
 import Timer from './Timer';
-const styles = {
-  canvas: {
-    border: '2px solid #333',
-    margin:'20px 0px'
-  },
-
-  maindiv: {
-    padding: "10px",
-    margin: "auto",
-    width: "800px",
-  },
-
-  button: {
-    border: "0px",
-    margin: "1px",
-    height: "50px",
-    minWidth: "75px",
-  }
 
 
-};
+
 interface DrawingBoardProps {
   width: number;
   height: number;
@@ -55,6 +38,9 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     timeToComplete:80,
     startTime:Date.now()
   }
+  const pickRandomWord = (): void  =>{
+    console.log("word",words[Math.floor(Math.random() * words.length)]);
+  }
   const counter:number = useSelector((state:any)=> state.channels.description.counter)
   return (
     <>
@@ -62,10 +48,9 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         {counter?<Timer roundTime = {roundTime}/>:null}
         
         <div id="round-waiting"></div>
-        {/* if room == full ? choosing word : waiting */}
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 1 ? 'waiting...':`need 0${2-players.length} more player to start`}</div>
-        <button disabled={info.counter === 80? false: true }>start</button>
+        <div id='currentword'>{players.length > 2 ? 'match is about to start':`need 0${3-players.length} more player to start`}</div>
+        <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
       <ScoreBoard/>

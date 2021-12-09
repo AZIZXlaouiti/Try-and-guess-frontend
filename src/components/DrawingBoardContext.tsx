@@ -46,11 +46,19 @@ const DrawingBoardProvider = (
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [color, setColor] = useState('#ff0000');
   const [brushSize, setBrushSize] = useState(10);
-  
-  if (session.user!.username === 'john'){
-    context.drawingPermission = true
+  const players = useSelector((state:any)=> state.channels.activeUsers)
+  const room  =  useSelector((state:any)=> state.channels.description)
+  const turn  = players.length - (room.max_round - room.round)
+  // host  = player.length - (max_round - round)
+  if (players.length === room.max_round){
+    if (players[room.round -1 ].username === session.user!.username){
+
+      context.drawingPermission = true
+    }
+
   }
- 
+
+  
   const draw = (ev: BoardEvent ,isEnding = false ) => {
     if (!ctx || !isDrawing || !context.drawingPermission) {
       return;
@@ -93,7 +101,7 @@ const DrawingBoardProvider = (
     ctx?.clearRect(0, 0, 800, 600)
     ctx?.fillRect(0, 0, 800, 600);
   };
-  const load = (line : Line): void =>{
+  const load = (line : Line) =>{
     if (!ctx) {
       return;
     }
