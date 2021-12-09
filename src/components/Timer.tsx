@@ -10,7 +10,7 @@ type RoundTime = {
 
 const Timer: React.FC<TimerProps> = ({ roundTime }) => {
   const room= useSelector((state:any)=> state.connections.room)
-  const counter:number = useSelector((state:any)=> state.channels.description.counter)
+  const counter = useSelector((state:any)=> state.channels.description.counter)
   
 
   const [currentCount, setCount] = React.useState(counter);
@@ -25,6 +25,9 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
           if (currentCount){
 
             timer()
+            room.perform('timer',{
+              counter: currentCount
+            })
           }
         }, 1000);
         return () => clearInterval(id);

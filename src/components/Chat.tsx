@@ -47,7 +47,7 @@ const Chat: React.FC = () => {
                 received :async(data)=> {
                     if ("counter" in data){
                         console.log("timer",data.counter)
-                        // dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
+                        dispatch({type:"ROOM_DESCRIPTION",payload:data.counter});
                         return 
                     }else {
 
