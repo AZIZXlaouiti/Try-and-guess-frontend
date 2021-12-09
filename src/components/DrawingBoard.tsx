@@ -63,7 +63,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         {/* if room == full ? choosing word : waiting */}
         <div id='round'>{`Round ${info.round }/3`}</div>
         <div id='currentword'>{players.length > 1 ? 'waiting...':`need 0${2-players.length} more player to start`}</div>
-        <button>start</button>
+        <button disabled={info.counter === 80? false: true }>start</button>
       </div>
     <div id="game-container">
       <ScoreBoard/>

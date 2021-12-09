@@ -10,11 +10,10 @@ type RoundTime = {
 
 const Timer: React.FC<TimerProps> = ({ roundTime }) => {
   const room= useSelector((state:any)=> state.connections.room)
-  const counter = useSelector((state:any)=> state.channels.description.counter)
-  const [start , setStart] = React.useState()
+  const counter:number = useSelector((state:any)=> state.channels.description.counter)
   
-
-  const [currentCount, setCount] = React.useState(counter);
+  
+  const [currentCount, setCount] = React.useState(10);
   const timer = () => setCount(currentCount - 1);
   
   React.useEffect(
@@ -22,10 +21,12 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
         if (currentCount <= 0) {
             return;
         }
-        const id = setInterval(timer, 1000);
+        const id = setInterval(()=>{
+          timer()
+        }, 1000);
         return () => clearInterval(id);
     },
-    [currentCount]
+    [false]
 );
       console.log('count',currentCount)
   return <div id='timer'>{counter}</div>;
