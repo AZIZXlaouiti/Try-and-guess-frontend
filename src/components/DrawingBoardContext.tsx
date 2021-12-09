@@ -4,6 +4,13 @@ import { useSelector } from 'react-redux';
 interface DrawingBoardProviderProps {
   children: React.ReactNode;
 }
+export interface Line {
+  x: number;
+  y: number;
+  color: string;
+  brushSize: number;
+  isEnding: boolean;
+}
 type BoardEvent = React.MouseEvent<HTMLCanvasElement, MouseEvent>;
 type PickerEvent = React.ChangeEvent<HTMLInputElement>;
 export interface DrawingBoardContextProps {
@@ -19,7 +26,7 @@ export interface DrawingBoardContextProps {
   brushSize: number;
   handleBrushSizeChange: (ev: PickerEvent) => void;
   clear: () => void;
-  load: (ev:Object) => void;
+  load: (line: Line) => void;
 }
 export interface GameContextProps {
   drawingPermission: boolean;
@@ -44,18 +51,17 @@ const DrawingBoardProvider = (
     context.drawingPermission = true
   }
  
-  const draw = (ev: BoardEvent ) => {
+  const draw = (ev: BoardEvent ,isEnding = false ) => {
     if (!ctx || !isDrawing || !context.drawingPermission) {
       return;
     }
-    ctx.strokeStyle = color;
-    ctx.lineWidth = brushSize;
     const newLine = {
       x: ev.clientX - ctx.canvas.offsetLeft,
       y: ev.clientY - ctx.canvas.offsetTop,
+      color,
+      brushSize,
+      isEnding
     };
-    ctx.lineTo(newLine.x, newLine.y);
-    ctx.stroke();
     canvasConnection.perform('create',{
       canvas: newLine
     })
@@ -86,15 +92,17 @@ const DrawingBoardProvider = (
     ctx?.clearRect(0, 0, 800, 600)
     ctx?.fillRect(0, 0, 800, 600);
   };
-  const load = (ev :Object): void =>{
-   
-    ctx.strokeStyle = '#ff0000';
-    ctx.lineWidth = 12;
-    ctx.lineTo(ev["x"], ev["y"]);
+  const load = (line : Line): void =>{
+    if (!ctx) {
+      return;
+    }
+    ctx.strokeStyle = line.color;
+    ctx.lineWidth = line.brushSize;
+    ctx.lineTo(line.x, line.y);
     ctx.stroke();
-    // if (line.isEnding) {
-    //   ctx.beginPath();
-    // }
+    if (line.isEnding) {
+      ctx.beginPath();
+    }
   }
 
   return (

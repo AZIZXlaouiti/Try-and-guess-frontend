@@ -70,15 +70,14 @@ const StylePicker: React.FC = () => {
         "y": 286
     }
 ]) 
-  const loadCanvas = ()=>{
-    let start = 0
-    while(start < canvas.length){
-      context.load(canvas[start])
-      start++
-    }
-    console.log('done')
-    // context.clear()
-  }
+  // const loadCanvas = ()=>{
+  //   let start = 0
+  //   while(start < canvas.length){
+  //     context.load(canvas[start])
+  //     start++
+  //   }
+  //   // context.clear()
+  // }
   const context = useContext(DrawingBoardContext) as DrawingBoardContextProps;
   return (
     <div id="stylepicker-container" className='features'>
@@ -102,7 +101,6 @@ const StylePicker: React.FC = () => {
      onClick={context.clear}
     
   >CLEAR</button>
-  <button onClick={()=>loadCanvas()}>LOAD</button>
   </div>
   );
 };
