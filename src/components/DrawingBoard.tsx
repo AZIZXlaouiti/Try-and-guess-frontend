@@ -37,6 +37,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
   const info = room.description 
+  const chosenWord = room.word
   const roundTime = {
     timeToComplete:80,
     startTime:Date.now()
@@ -45,6 +46,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     if (players.length === info.max_round){
       if (players[info.round -1 ].username === session.user!.username){
         dispatch({type:"SET_CHOSEN_WORD",payload:words[Math.floor(Math.random() * words.length)]});
+
       }
   
     }
@@ -58,7 +60,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? 'match is about to start':`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${chosenWord}`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
