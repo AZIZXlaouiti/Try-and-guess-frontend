@@ -55,10 +55,12 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     timeToComplete:80,
     startTime:Date.now()
   }
+  const counter:number = useSelector((state:any)=> state.channels.description.counter)
   return (
     <>
       <div className='head' id="roundinfo-container">
-        <Timer roundTime = {roundTime}/>
+        {counter?<Timer roundTime = {roundTime}/>:null}
+        
         <div id="round-waiting"></div>
         {/* if room == full ? choosing word : waiting */}
         <div id='round'>{`Round ${info.round }/3`}</div>
