@@ -30,11 +30,7 @@ const Chat: React.FC = () => {
                   });
                 }
               
-            // const canvasConnection =  cable.subscriptions.create('SketchChannel',{
-            //   received :async(data)=>{
-            //       setCanvas(data)
-            //       chatConnection.
-            //   }
+           
               
             })   
             const roomConnection = cable.subscriptions.create({
@@ -46,7 +42,6 @@ const Chat: React.FC = () => {
                 },
                 received :async(data)=> {
                     if ("counter" in data){
-                        console.log("timer",data.counter)
                         dispatch({type:"ROOM_DESCRIPTION",payload:data.counter});
                         return 
                     }else {
@@ -62,9 +57,19 @@ const Chat: React.FC = () => {
                     })
                 }
             })
+            const canvasConnection = cable.subscriptions.create('SketchChannel',{
+                    connected():void{
+                    },
+                    received :async(data)=> {
+                        console.log("canvas" , data)
+                        dispatch({type:"SET_CANVAS_LOGS",payload:data.canvas});
+                        
+                    }
+            })
+             
         dispatch({type:"SET_CHAT_SUBSCRIPTION",payload:chatConnection});
         dispatch({type:"SET_ROOM_SUBSCRIPTION",payload:roomConnection});
-        // dispatch({type:"SET_CANVAS_SUBSCRIPTION",payload:chatConnection});
+        dispatch({type:"SET_CANVAS_SUBSCRIPTION",payload:canvasConnection});
         }
     if (session.user){
        createSocket()

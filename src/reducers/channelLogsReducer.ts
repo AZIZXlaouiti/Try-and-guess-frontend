@@ -1,6 +1,7 @@
 const initialState:any = {
     description:{},
-    activeUsers:[]
+    activeUsers:[],
+    canvas:{}
 }
 
 const channelLogsReducer =  (state = initialState, { type, payload }:any) => {
@@ -17,6 +18,11 @@ const channelLogsReducer =  (state = initialState, { type, payload }:any) => {
            description:payload, 
            
         }
+    case "SET_CANVAS_LOGS":
+        return {
+            ...state , 
+            canvas:payload
+        }    
     default:
         return state
     }

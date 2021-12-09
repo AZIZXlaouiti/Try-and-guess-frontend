@@ -19,6 +19,7 @@ export interface DrawingBoardContextProps {
   brushSize: number;
   handleBrushSizeChange: (ev: PickerEvent) => void;
   clear: () => void;
+  load: (ev:Object) => void;
 }
 export interface GameContextProps {
   drawingPermission: boolean;
@@ -32,15 +33,18 @@ const DrawingBoardProvider = (
   props: DrawingBoardProviderProps
 ): JSX.Element => {
   const session:SessionProp= useSelector((state:any)=> state.sessions)
+  const canvasConnection = useSelector((state:any)=> state.connections.canvas)
   const context = React.useContext(GameContext)
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [color, setColor] = useState('#ff0000');
   const [brushSize, setBrushSize] = useState(10);
+  
   if (session.user!.username === 'john'){
     context.drawingPermission = true
   }
-  const draw = (ev: BoardEvent) => {
+ 
+  const draw = (ev: BoardEvent ) => {
     if (!ctx || !isDrawing || !context.drawingPermission) {
       return;
     }
@@ -52,6 +56,11 @@ const DrawingBoardProvider = (
     };
     ctx.lineTo(newLine.x, newLine.y);
     ctx.stroke();
+    canvasConnection.perform('create',{
+      canvas: newLine
+    })
+    // setCanvas([...canvas,newLine])
+    // console.log("canvass arr" , canvas)
   };
   const handleMouseMove = (ev: BoardEvent): void => {
     draw(ev);
@@ -64,6 +73,7 @@ const DrawingBoardProvider = (
     setIsDrawing(false);
     draw(ev);
     ctx?.beginPath();
+
   };
   const handleColorChange = (ev: PickerEvent): void => {
     setColor(ev.target.value);
@@ -76,6 +86,17 @@ const DrawingBoardProvider = (
     ctx?.clearRect(0, 0, 800, 600)
     ctx?.fillRect(0, 0, 800, 600);
   };
+  const load = (ev :Object): void =>{
+   
+    ctx.strokeStyle = '#ff0000';
+    ctx.lineWidth = 12;
+    ctx.lineTo(ev["x"], ev["y"]);
+    ctx.stroke();
+    // if (line.isEnding) {
+    //   ctx.beginPath();
+    // }
+  }
+
   return (
     <DrawingBoardContext.Provider
       value={{
@@ -90,7 +111,8 @@ const DrawingBoardProvider = (
         brushSize,
         handleBrushSizeChange,
         handleColorChange,
-        clear
+        clear,
+        load
       }}
     >
       {props.children}
