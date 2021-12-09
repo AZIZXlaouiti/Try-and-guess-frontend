@@ -52,7 +52,6 @@ const DrawingBoardProvider = (
   // host  = player.length - (max_round - round)
   if (players.length === room.max_round){
     if (players[room.round -1 ].username === session.user!.username){
-
       context.drawingPermission = true
     }
 
@@ -74,8 +73,7 @@ const DrawingBoardProvider = (
     canvasConnection.perform('create',{
       canvas: newLine
     })
-    // setCanvas([...canvas,newLine])
-    // console.log("canvass arr" , canvas)
+ 
   };
   const handleMouseMove = (ev: BoardEvent): void => {
     draw(ev);

@@ -10,7 +10,7 @@ import { ScoreBoard } from './ScoreBoard';
 import StylePicker from './StylePicker';
 import Timer from './Timer';
 
-
+import { SessionProp } from '../reducers/type';
 
 interface DrawingBoardProps {
   width: number;
@@ -32,6 +32,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     context.setCtx(ctx);
   }, []);
   const room = useSelector((state:any)=> state.channels)
+  const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
   const info = room.description 
   const roundTime = {
@@ -39,9 +40,15 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
     startTime:Date.now()
   }
   const pickRandomWord = (): void  =>{
-    console.log("word",words[Math.floor(Math.random() * words.length)]);
+    if (players.length === info.max_round){
+      if (players[info.round -1 ].username === session.user!.username){
+        console.log("word",words[Math.floor(Math.random() * words.length)]);
+      }
+  
+    }
   }
   const counter:number = useSelector((state:any)=> state.channels.description.counter)
+ 
   return (
     <>
       <div className='head' id="roundinfo-container">
