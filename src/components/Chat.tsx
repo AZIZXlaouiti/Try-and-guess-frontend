@@ -45,9 +45,22 @@ const Chat: React.FC = () => {
                 connected():void{
                 },
                 received :async(data)=> {
-                     dispatch({type:"SET_ACTIVE_ROOM_USER",payload:data.members});
-                     dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
+                    if ("counter" in data){
+                        console.log(data.counter)
+                    //     dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
+                        return 
+                    }else {
+
+                        dispatch({type:"SET_ACTIVE_ROOM_USER",payload:data.members});
+                        dispatch({type:"ROOM_DESCRIPTION",payload:data.room});
+                    }
                 },
+                start():void{
+                    roomConnection.perform('start',{
+                        start:true 
+
+                    })
+                }
             })
         dispatch({type:"SET_CHAT_SUBSCRIPTION",payload:chatConnection});
         dispatch({type:"SET_ROOM_SUBSCRIPTION",payload:roomConnection});

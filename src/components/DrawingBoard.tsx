@@ -53,7 +53,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   const info = room.description 
   const roundTime = {
     timeToComplete:80,
-    startTime:80
+    startTime:Date.now()
   }
   return (
     <>
