@@ -16,23 +16,18 @@ const Timer: React.FC<TimerProps> = ({ roundTime }) => {
 
   const [currentCount, setCount] = React.useState(counter);
   const timer = () => setCount(currentCount - 1);
-
+  
   React.useEffect(
-      () => {
-          if (currentCount <= 0) {
-              return;
-          }
-          const id = setInterval(function(){
-            timer()
-            room.perform('timer',{
-              counter: currentCount
-            })
-          }, 1000);
-          return () => clearInterval(id);
-      },
-      [currentCount]
-  );
-  console.log(currentCount)
+    () => {
+        if (currentCount <= 0) {
+            return;
+        }
+        const id = setInterval(timer, 1000);
+        return () => clearInterval(id);
+    },
+    [currentCount]
+);
+      console.log('count',currentCount)
   return <div id='timer'>{counter}</div>;
 };
 export default Timer;
