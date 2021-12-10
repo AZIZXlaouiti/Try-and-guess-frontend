@@ -2,13 +2,16 @@ import React from 'react';
 import { useSelector } from 'react-redux'
 interface TimerProps {
   roundTime: RoundTime;
+  isStart: IsStart;
 }
 type RoundTime = {
     timeToComplete: number;
     startTime: number;
   };
-
-const Timer: React.FC<TimerProps> = ({ roundTime }) => {
+type IsStart = {
+    isStart: boolean
+}
+const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
   const room= useSelector((state:any)=> state.connections.room)
   const counter = useSelector((state:any)=> state.channels.description.counter)
   

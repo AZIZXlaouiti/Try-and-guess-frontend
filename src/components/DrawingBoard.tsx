@@ -13,7 +13,6 @@ import Timer from './Timer';
 import { SessionProp } from '../reducers/type';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
-import { encode } from 'punycode';
 interface DrawingBoardProps {
   width: number;
   height: number;
@@ -58,7 +57,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   
     }
   }
-  const encode = (word:string):string=>{
+  const encode = (word:string): string =>{
     let str = ''
       for (const value of word){
         if (value !== " "){
@@ -73,16 +72,16 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   return (
     <>
       <div className='head' id="roundinfo-container">
-        {counter?<Timer roundTime = {roundTime}/>:null}
+        {counter?<Timer roundTime = {roundTime} isStart={info.game_started}/>:null}
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? `${ reveal ?chosenWord: encode(chosenWord) }`:`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${chosenWord?reveal?chosenWord:encode(chosenWord): null }`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
       <ScoreBoard/>
-    <div  >
+    <div  >   
     <canvas 
        className='container'
        ref={ref}
