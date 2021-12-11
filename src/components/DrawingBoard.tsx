@@ -54,6 +54,9 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         })
         setReEveal(true)
       }
+      else {
+        return
+      }
   
     }
   }
@@ -83,13 +86,14 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
       <ScoreBoard/>
     <div  >   
     <canvas 
-       className='container'
+       className='container cursor'
        ref={ref}
        width={props.width}
        height={props.height}
        onMouseDown={context.handleMouseDown}
        onMouseUp={context.handleMouseUp}
        onMouseMove={context.handleMouseMove}
+
        ></canvas>
      <StylePicker></StylePicker>
     </div>

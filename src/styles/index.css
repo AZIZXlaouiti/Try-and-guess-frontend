@@ -259,6 +259,19 @@ button {
   text-align: center;
   margin-left: 20px;
 }
+.cursor{
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAVtJREFUWEftlj1LxTAUht+LIDgofm2SJgr+gs5SxEWc2v/i4CZuDv6XdBIXkeDcXyBoToObX3gHQRAkcAt3qd7mgAZN5xzy8Jy3bztC5M8ocj4kQO6GksFkkGuAO58ymAxyDXDn/00G1wEcAnibGFsAcAbgIQaDGsCGEGI+z/NXD9Q0zZJz7h3APYCKA8ld8ZWUctkYo6SUcwAWJzBjIvooioKI6BnAbigkB1BLKTettasARA+AU0o9EpENNRkK6DN3bq3d9ga/skNEL0qpGwAHIZkMBTwVQuy3bbs1tdY+znGWZbfOuQsAR0NXHQp4XJblntZ6Z5YLq6q6ruv6EsDJLOenz/xZwOhXHP1L4mPia0ZZa9e+qZknIrr76ZrpcuyLesUYI3uK2vqa+a2i7iCj/tR1kFH/LAyttkHnQ3tw0CWcwwmQY8/PJoPJINcAdz5lMBnkGuDOR5/BT6yhhCnNGCtwAAAAAElFTkSuQmCC) 20 20, default;
+}
+#overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  line-height: 1;
+  opacity: 0;
+  background: rgba(3,8,29,.8);
+  text-shadow: 0 0 3px #000;
+}
 #intro {
   color: #ffb600;
   cursor: pointer;

@@ -14,31 +14,25 @@ type IsStart = {
 const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
   const room = useSelector((state:any)=> state.connections.room)
   const info = useSelector((state:any)=> state.channels.description)
-  
-  const [currentCount, setCount] = React.useState(
+const [time, setTime] = React.useState(
     info.counter
   );
-  const timer = () => setCount(info.counter - Math.floor((Date.now() - new Date( info.updated_at).getTime())/1000));
-  
-  React.useEffect(
-    () => {
-        if (currentCount < 0) {
-             room.perform('end_timer')
-            return;
+  React.useEffect(() => {
+    setInterval(() => {
+      if (isStart) {
+        const newTime =
+        info.counter - Math.floor((Date.now() - new Date( info.updated_at).getTime())/1000)
+        if (newTime  <= 0) {
+          return;
         }
-        const id = setInterval(()=>{
-            if (isStart){
-                if (currentCount){
-      
-                  timer()
-                }
-            }
-        }, 1000);
-        return () => clearInterval(id);
-    },
-    [isStart && currentCount]
-);
-console.log(currentCount)
-return <div id='timer'>{currentCount}</div>;
+        console.log(newTime)
+        setTime(newTime);
+      }
+    }, 250);
+    return () => {
+        room.perform('end_timer')
+    };
+  }, [time && isStart ]);
+return <div id='timer'>{time}</div>;
 };
 export default Timer;
