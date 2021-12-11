@@ -31,11 +31,6 @@ const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
                 if (currentCount){
       
                   timer()
-                 // console.log(info.counter - Math.floor((Date.now() - new Date( info.updated_at).getTime())/1000))
-
-                  // room.perform('timer',{
-                  //   counter: currentCount
-                  // })
                 }
             }
         }, 1000);
