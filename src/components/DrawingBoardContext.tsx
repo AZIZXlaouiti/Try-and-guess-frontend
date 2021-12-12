@@ -26,7 +26,7 @@ export interface DrawingBoardContextProps {
   brushSize: number;
   handleBrushSizeChange: (ev: PickerEvent) => void;
   clear: () => void;
-  load: (line: Line) => void;
+  drawLine: (line: Line) => void;
 }
 export interface GameContextProps {
   drawingPermission: boolean;
@@ -40,8 +40,8 @@ const DrawingBoardProvider = (
   props: DrawingBoardProviderProps
 ): JSX.Element => {
   const session:SessionProp= useSelector((state:any)=> state.sessions)
-  const canvasConnection = useSelector((state:any)=> state.connections.canvas)
-  const context = React.useContext(GameContext)
+  // const canvasConnection = useSelector((state:any)=> state.connections.canvas)
+  const context = React.useContext(GameContext) as GameContextProps
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [color, setColor] = useState('#ff0000');
@@ -49,6 +49,7 @@ const DrawingBoardProvider = (
   const players = useSelector((state:any)=> state.channels.activeUsers)
   const room  =  useSelector((state:any)=> state.channels.description)
   const turn  = players.length - (room.max_round - room.round)
+  const socket = useSelector((state:any)=> state.connections.canvas)
   // host  = player.length - (max_round - round)
   if (players.length === room.max_round){
     if (players[room.round -1 ].username === session.user!.username){
@@ -56,7 +57,23 @@ const DrawingBoardProvider = (
     }
 
   }
-
+  // React.useEffect(() => {
+  //   if (ctx) {
+  //     socket.perform('create', (line: Line) => {
+  //       drawLine(line);
+  //     });
+  //     socket.recieved()
+  //     // socket.on('drawingState', async (lines: Line[]) => {
+  //     //   for (const line of lines) {
+  //     //     drawLine(line);
+  //     //     await waitFor(5);
+  //     //   }
+  //     // });
+  //     // socket.on('roundStart', () => {
+  //     //   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  //     // });
+  //   }
+  // }, [ctx]);
   
   const draw = (ev: BoardEvent ,isEnding = false ) => {
     if (!ctx || !isDrawing || !context.drawingPermission) {
@@ -69,10 +86,12 @@ const DrawingBoardProvider = (
       brushSize,
       isEnding
     };
-    load(newLine)
-    canvasConnection.perform('create',{
+    drawLine(newLine)
+    socket.perform('create',{
       canvas: newLine
     })
+ 
+    
  
   };
   const handleMouseMove = (ev: BoardEvent): void => {
@@ -99,7 +118,7 @@ const DrawingBoardProvider = (
     ctx?.clearRect(0, 0, 800, 600)
     ctx?.fillRect(0, 0, 800, 600);
   };
-  const load = (line : Line) =>{
+  const drawLine = (line : Line) =>{
     if (!ctx) {
       return;
     }
@@ -127,7 +146,7 @@ const DrawingBoardProvider = (
         handleBrushSizeChange,
         handleColorChange,
         clear,
-        load
+        drawLine
       }}
     >
       {props.children}

@@ -72,6 +72,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
    return str
   }
   const counter:number = useSelector((state:any)=> state.channels.description.counter)
+  let draw = info.game_started?"none":""
   return (
     <>
       <div className='head' id="roundinfo-container">
@@ -95,6 +96,12 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
        onMouseMove={context.handleMouseMove}
 
        ></canvas>
+       <div id="overlay">
+         <div id="content"  style={{"display":draw}}>
+           <h2>The word was {chosenWord}</h2>
+           {players.map((e,i)=><div className='text' key={i}>{e.username}: {e.score} points</div>)}
+         </div>
+       </div>
      <StylePicker></StylePicker>
     </div>
       <Chat/>

@@ -16,8 +16,10 @@ type SessionProp = {
     user:User |null
     token:string | null
   }
-export type ChatMsg = { content: string; online: boolean; 
-    user:{username: string }
+export type ChatMsg = { 
+    content: string; online: boolean; 
+    user:{username: string };
+    chat_type: string;
   };
 interface ChatMessageProps {
     messages: ChatMsg[];

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const ChatForm: React.FC = () => {
   const [chatInput, setChatInput] = React.useState('');
+  const chosenword  =  useSelector((state:any)=> state.channels.description.chosen_word)
   const chat= useSelector((state:any)=> state.connections.chats)
   return (
     <form
@@ -11,7 +12,12 @@ const ChatForm: React.FC = () => {
         if (chatInput === '') {
           return;
         }
-        chat.create(chatInput)
+        if (chatInput === chosenword){
+          chat.isGuessed()
+        }else {
+
+          chat.create(chatInput)
+        }
         setChatInput('');
       }}
     >
