@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'react';
 interface TimerProps {
   roundTime: RoundTime;
   isStart: IsStart;
@@ -14,6 +16,7 @@ type IsStart = {
 const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
   const room = useSelector((state:any)=> state.connections.room)
   const info = useSelector((state:any)=> state.channels.description)
+  const dispatch:Dispatch<any> = useDispatch()
   const [currentCount, setCount] = React.useState(
     info.counter
   );
@@ -22,7 +25,9 @@ const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
   React.useEffect(
     () => {
         if (currentCount <= 0) {
+             dispatch({type:"SET_CHOSEN_WORD",payload:info.chosen_word});
              room.perform('end_timer')
+             setCount(info.counter)
             return; 
         }
         const id = setInterval(()=>{

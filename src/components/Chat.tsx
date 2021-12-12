@@ -808,6 +808,8 @@ const Chat: React.FC = () => {
                 received :async(data)=> {
                     if ("word" in  data){
                         dispatch({type:"ROOM_DESCRIPTION",payload:data.word});
+                        
+                       
                     }
                     else if  ("counter" in data){
                         dispatch({type:"ROOM_DESCRIPTION",payload:data.counter});

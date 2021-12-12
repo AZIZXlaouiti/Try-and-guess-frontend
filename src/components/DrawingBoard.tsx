@@ -34,6 +34,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   }, []);
   const dispatch:Dispatch<any> = useDispatch()
   const [reveal , setReEveal] = React.useState(false)
+  const word = useSelector((state:any)=> state.channels.word)
   const room = useSelector((state:any)=> state.channels)
   const roomConnection = useSelector((state:any)=> state.connections.room)
   const chatConnection = useSelector((state:any)=> state.connections.chats)
@@ -95,7 +96,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
         
         <div id="round-waiting"></div>
         <div id='round'>{`Round ${info.round }/3`}</div>
-        <div id='currentword'>{players.length > 2 ? `${chosenWord?reveal?chosenWord:encode(chosenWord): null }`:`need 0${3-players.length} more player to start`}</div>
+        <div id='currentword'>{players.length > 2 ? `${chosenWord?reveal?chosenWord:encode(chosenWord): 'waiting...' }`:`need 0${3-players.length} more player to start`}</div>
         <button  onClick={()=>pickRandomWord()} >start</button>
       </div>
     <div id="game-container">
@@ -113,7 +114,8 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
        ></canvas>
        <div id="overlay">
          <div id="content"  style={{"display":draw}}>
-           <h2>The word was {chosenWord}</h2>
+           {word?  <h2>The word was {word}</h2>:<h2>waiting...</h2> }
+         
            {players.map((e,i)=><div className='text' key={i}>{e.username}: {e.score} points</div>)}
          </div>
        </div>
