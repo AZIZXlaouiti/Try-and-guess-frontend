@@ -36,6 +36,7 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   const [reveal , setReEveal] = React.useState(false)
   const room = useSelector((state:any)=> state.channels)
   const roomConnection = useSelector((state:any)=> state.connections.room)
+  const chatConnection = useSelector((state:any)=> state.connections.chats)
   const session:SessionProp= useSelector((state:any)=> state.sessions)
   const players = room.activeUsers 
   const info = room.description 
@@ -76,6 +77,20 @@ const DrawingBoard: React.FC<DrawingBoardProps> = (props) => {
   return (
     <>
       <div className='head' id="roundinfo-container">
+      <button
+          onClick={(ev):void => {
+            ev.preventDefault();
+            dispatch({ type: "LOGOUT" });
+            localStorage.removeItem("token");
+            roomConnection.unsubscribe()
+            chatConnection.unsubscribe()
+            chatConnection.perform("disconnect",{
+              user:session.user!.username
+          })
+           }}
+        > 
+          logout
+        </button>
         {counter?<Timer roundTime = {roundTime} isStart={info.game_started}/>:null}
         
         <div id="round-waiting"></div>

@@ -826,9 +826,10 @@ const Chat: React.FC = () => {
                     },
                     received :async({canvas})=> {
                         console.log("canvas" , canvas)
-                        context.drawLine(canvas)
+                        // context.drawLine(canvas)
+                        
                         arr.push(canvas)
-                        console.log("canvas arr",arr)
+                        // console.log("canvas arr",arr)
                         // dispatch({type:"SET_CANVAS_LOGS",payload:data.canvas});
                         
                     }
@@ -844,6 +845,11 @@ const Chat: React.FC = () => {
 },[])   
    return (
        <div id="chatbox-container">
+           <button onClick={()=>{
+               for (const line of arr) {
+                context.drawLine(line);
+              }
+           }}>load</button>
            <ChatMessages messages={message}/>
           <ChatForm/>
        </div> 

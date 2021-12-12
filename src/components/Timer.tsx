@@ -36,7 +36,7 @@ const Timer: React.FC<TimerProps> = ({ roundTime , isStart }) => {
     },
     [isStart && currentCount]
 );
-console.log(currentCount)
+// console.log(currentCount)
 return <div id='timer'>{currentCount}</div>;
 
 };

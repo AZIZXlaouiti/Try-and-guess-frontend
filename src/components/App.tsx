@@ -22,20 +22,7 @@ const App: React.FC = () => {
   return (
     <>
     {session.user?<DrawingBoardProvider>
-      <button
-          onClick={(ev):void => {
-            ev.preventDefault();
-            dispatch({ type: "LOGOUT" });
-            localStorage.removeItem("token");
-            room.unsubscribe()
-            chat.unsubscribe()
-            chat.perform("disconnect",{
-              user:session.user!.username
-          })
-           }}
-        > 
-          logout
-        </button>
+    
     <DrawingBoard width={800} height={600}></DrawingBoard>
   </DrawingBoardProvider> :<SessionForm/>}
     
